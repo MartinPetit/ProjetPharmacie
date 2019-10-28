@@ -20,13 +20,15 @@ class AppFixtures extends Fixture
             $image = $faker->imageUrl(1000,350);
             $brand = $faker->word();
             $description = $faker->sentence();
+            $content = '<p>' . join('</p><p>', $faker->paragraphs(4)) . '</p>';
             
 
             $product->setName($name)
                 ->setImage($image)
                 ->setBrand($brand)
                 ->setPrice(mt_rand(5,200))
-                ->setDescription($description);
+                ->setDescription($description)
+                ->setContent($content);
                 
 
 

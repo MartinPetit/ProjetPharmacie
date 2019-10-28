@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Product
 {
@@ -40,6 +42,31 @@ class Product
      * @ORM\Column(type="text")
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $content;
+
+    /**
+     * Permet d'initialiser le slug
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+
+
+    public function initializeSlug() {
+        if (empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->name);
+        }
+    }
 
 
     public function getId(): ?int
@@ -103,6 +130,30 @@ class Product
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
 
         return $this;
     }

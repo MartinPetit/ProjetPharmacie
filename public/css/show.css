@@ -1,0 +1,27 @@
+.vertical {
+    border-left : 1px solid black;
+    padding-left : 60px;
+    margin-right: 30px;
+
+}
+
+.nopadding {
+    padding-right: 0;
+    margin-right: 0;
+    margin-left: 20px;
+    
+}
+
+.rightA {
+    text-align : right;
+}
+
+.descr {
+    font-style: italic;
+    font-size: 15px;
+    text-align: center;
+}
+
+.te { 
+    margin-right : 60px;
+}

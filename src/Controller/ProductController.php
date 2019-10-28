@@ -18,4 +18,20 @@ class ProductController extends AbstractController
             'products' => $products
         ]);
     }
+
+    /**
+     * @Route("/products/{slug}", name = "show_products")
+     * @return Response
+     */
+
+    public function show($slug, ProductRepository $repo) {
+        $product = $repo->findOneBySlug($slug);
+
+        return $this->render('product/show.html.twig', [
+            'product' => $product
+        ]);
+
+    }
+
+
 }
