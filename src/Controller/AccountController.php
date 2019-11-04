@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\AccountType;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,15 +54,54 @@ class AccountController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            $this->addFlash(
+            
+$this->addFlash(
                 'success', 
                 "Vous êtes enregistré, un mail vous a été envoyé"
               );
-
               return $this->redirectToRoute('account_login');
         }
 
         return $this->render('account/registration.html.twig', [
+            'form' => $form->createView()
+        ]);
+
+    }
+
+
+
+
+
+    /**
+     * @Route("/account/profile", name = "account_profile")
+     */
+
+
+    public function profile(Request $request, ObjectManager $manager) {
+
+        $user = $this->getUser();
+
+        $form = $this->createForm(AccountType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success', 
+                "Vos modifications ont été prises en compte"
+              );
+
+              return $this->redirectToRoute('homepage');
+        }
+
+
+
+
+
+        return $this->render('account/profile.html.twig', [
             'form' => $form->createView()
         ]);
 
