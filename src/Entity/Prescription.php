@@ -19,33 +19,83 @@ class Prescription
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $duration;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="prescriptions")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="prescriptions")
      */
     private $nuser;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\doctor", inversedBy="prescriptions")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Doctor", inversedBy="prescriptions")
      */
     private $ndoctor;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\product")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product")
      */
-    private $products;
+    private $idProduit;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $duration;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $this->idProduit = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getNuser(): ?User
+    {
+        return $this->nuser;
+    }
+
+    public function setNuser(?User $nuser): self
+    {
+        $this->nuser = $nuser;
+
+        return $this;
+    }
+
+    public function getNdoctor(): ?Doctor
+    {
+        return $this->ndoctor;
+    }
+
+    public function setNdoctor(?Doctor $ndoctor): self
+    {
+        $this->ndoctor = $ndoctor;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getIdProduit(): Collection
+    {
+        return $this->idProduit;
+    }
+
+    public function addIdProduit(Product $idProduit): self
+    {
+        if (!$this->idProduit->contains($idProduit)) {
+            $this->idProduit[] = $idProduit;
+        }
+
+        return $this;
+    }
+
+    public function removeIdProduit(Product $idProduit): self
+    {
+        if ($this->idProduit->contains($idProduit)) {
+            $this->idProduit->removeElement($idProduit);
+        }
+
+        return $this;
     }
 
     public function getDuration(): ?string
@@ -56,56 +106,6 @@ class Prescription
     public function setDuration(string $duration): self
     {
         $this->duration = $duration;
-
-        return $this;
-    }
-
-    public function getNuser(): ?user
-    {
-        return $this->nuser;
-    }
-
-    public function setNuser(?user $nuser): self
-    {
-        $this->nuser = $nuser;
-
-        return $this;
-    }
-
-    public function getNdoctor(): ?doctor
-    {
-        return $this->ndoctor;
-    }
-
-    public function setNdoctor(?doctor $ndoctor): self
-    {
-        $this->ndoctor = $ndoctor;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|product[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(product $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(product $product): self
-    {
-        if ($this->products->contains($product)) {
-            $this->products->removeElement($product);
-        }
 
         return $this;
     }

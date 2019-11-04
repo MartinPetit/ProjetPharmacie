@@ -24,18 +24,12 @@ class Doctor
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Rendezvous", mappedBy="nDoctor")
-     */
-    private $rendezvouses;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Prescription", mappedBy="ndoctor")
      */
     private $prescriptions;
 
     public function __construct()
     {
-        $this->rendezvouses = new ArrayCollection();
         $this->prescriptions = new ArrayCollection();
     }
 
@@ -52,37 +46,6 @@ class Doctor
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Rendezvous[]
-     */
-    public function getRendezvouses(): Collection
-    {
-        return $this->rendezvouses;
-    }
-
-    public function addRendezvouse(Rendezvous $rendezvouse): self
-    {
-        if (!$this->rendezvouses->contains($rendezvouse)) {
-            $this->rendezvouses[] = $rendezvouse;
-            $rendezvouse->setNDoctor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRendezvouse(Rendezvous $rendezvouse): self
-    {
-        if ($this->rendezvouses->contains($rendezvouse)) {
-            $this->rendezvouses->removeElement($rendezvouse);
-            // set the owning side to null (unless already changed)
-            if ($rendezvouse->getNDoctor() === $this) {
-                $rendezvouse->setNDoctor(null);
-            }
-        }
 
         return $this;
     }

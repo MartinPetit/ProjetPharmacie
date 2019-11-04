@@ -6,9 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ * fields={"email"},
+ * message="Mail déja utilisé, veuillez modifier")
  */
 class User implements UserInterface
 {
@@ -20,35 +25,39 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message = "veuillez renseigner un email valide")
      */
     private $email;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $roles = [];
-
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     */
-    private $password;
+    private $picture;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $hash;
+    
 
     /**
-     * @ORM\Column(type="integer")
+     * @Assert\EqualTo(propertyPath="hash", message="les deux mots de passe ne sont pas identiques")
      */
-    private $age;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Rendezvous", mappedBy="nUser")
-     */
-    private $rendezvouses;
+    public $passwordConfirm;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Prescription", mappedBy="nuser")
@@ -57,13 +66,36 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->rendezvouses = new ArrayCollection();
         $this->prescriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -78,121 +110,51 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
+    public function getPicture(): ?string
     {
-        return (string) $this->email;
+        return $this->picture;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
+    public function setPicture(?string $picture): self
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
+        $this->picture = $picture;
 
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
+    public function getHash(): ?string
     {
-        return (string) $this->password;
+        return $this->hash;
     }
 
-    public function setPassword(string $password): self
+    public function setHash(string $hash): self
     {
-        $this->password = $password;
+        $this->hash = $hash;
 
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword()
+    {
+        return $this->hash;
+    }
+
     public function getSalt()
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
+    public function getUsername()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        return $this->email;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getAge(): ?int
-    {
-        return $this->age;
-    }
-
-    public function setAge(int $age): self
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Rendezvous[]
-     */
-    public function getRendezvouses(): Collection
-    {
-        return $this->rendezvouses;
-    }
-
-    public function addRendezvouse(Rendezvous $rendezvouse): self
-    {
-        if (!$this->rendezvouses->contains($rendezvouse)) {
-            $this->rendezvouses[] = $rendezvouse;
-            $rendezvouse->setNUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRendezvouse(Rendezvous $rendezvouse): self
-    {
-        if ($this->rendezvouses->contains($rendezvouse)) {
-            $this->rendezvouses->removeElement($rendezvouse);
-            // set the owning side to null (unless already changed)
-            if ($rendezvouse->getNUser() === $this) {
-                $rendezvouse->setNUser(null);
-            }
-        }
-
-        return $this;
-    }
+    public function eraseCredentials(){}
 
     /**
      * @return Collection|Prescription[]
