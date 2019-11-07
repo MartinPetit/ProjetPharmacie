@@ -216,13 +216,38 @@
                 <div class="card-body">
                     <div class="container">
 
+                            {% if app.user %}
+
                             {{ form_start(form) }}
 
-                                {{ form_widget(form) }}
+                                
+                                {{form_label(form.mail)}}
+                                {{ form_widget(form.mail, {value : username}) }} <br>
+                                {{form_label(form.firstname)}}
+                                {{ form_widget(form.firstname, {value : firstname}) }} <br>
+                                {{form_label(form.name)}}
+                                {{ form_widget(form.name, {value : name}) }} <br>
+                                {{form_label(form.message)}}
+                                {{ form_widget(form.message) }} <br>
 
                                     <button type ="submit" class="btn btn-primary"> Envoyer </button:type>
 
                                 {{ form_end(form) }}
+
+
+                                {% else %}
+
+                                {{ form_start(form) }}
+
+                                {{form_widget(form)}}
+
+                                    <button type ="submit" class="btn btn-primary"> Envoyer </button:type>
+
+                                {{ form_end(form) }}
+
+                                {% endif %}
+
+
                         </div>
                 </div>
 
