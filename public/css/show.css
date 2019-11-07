@@ -25,3 +25,27 @@
 .te { 
     margin-right : 60px;
 }
+
+.btn-default:hover {
+    color:white;
+}
+
+.btn-default {
+    color: rgba(255,255,255,0.5);
+}
+
+.test {
+    margin-top: 4px;
+}
+
+.dropdown-menu {
+    padding-right: auto;
+    background-color : #1a1a1a;
+
+
+}
+
+.dropdown-item {
+    color : rgba(255,255,255,0.5);
+
+}

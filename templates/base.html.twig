@@ -2,13 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title> 
+        <title>
             {% block title %}Pharmacie Pasteur
             {% endblock %}
         </title>
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/show.css">
-		<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet"> {% block stylesheets %}{% endblock %}
+        <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet"> {% block stylesheets %}{% endblock %}
         </head>
         <body>
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -25,58 +25,65 @@
                             <a class="nav-link" href="{{ path ('homepage') }}">Accueil</a>
                         </li>
                     </ul>
-					<ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ path ('index_product') }}">Nos produits</a>
                         </li>
                     </ul>
-					<ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ path ('homepage') }}">Teleconsultation</a>
                         </li>
                     </ul>
-					<ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ path ('homepage') }}">Ordonnance</a>
                         </li>
                     </ul>
-                    <ul class = "navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto">
                         {% if app.user %}
                             <li class="nav-item">
-                                <a href="{{path('account_logout')}}" class="nav-link"> Déconnexion </a>
+                                <a href="{{path('account_logout')}}" class="nav-link test">
+                                    Déconnexion
+                                </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{path('account_profile')}}" class="nav-link"> Mon profil </a>
+                            <li class="nav-item dropdown">
+
+
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    Mon profil
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{path('account_profile')}}">Mes informations</a>
+                                    <a class="dropdown-item" href="{{path('account_password')}}">Modifier mon </br> mot de passe</a>
                             </li>
-                        {% else %}
-                            <li class="nav-item">
-                                <a href="{{path('account_register')}}" class="nav-link"> Inscription </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{path('account_login')}}" class="nav-link"> Connexion </a>
-                            </li>
+                        </div>
 
-                        {% endif %}
-                    </ul>
-                    
-                </div>
-            </nav>
 
-             {% for label, messages in app.flashes %}
-                <div class="container"> 
-                    <div class="alert alert-{{ label }}">
-                        {% for message in messages %}
-                            <p> {{ message | raw }} </p>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endfor %}
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{{path('account_register')}}" class="nav-link">
+                            Inscription
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{path('account_login')}}" class="nav-link">
+                            Connexion
+                        </a>
+                    </li>
 
-            {% block body %}{% endblock %}
-
-            <script src="/js/jquerry.min.js"></script>
-            <script src="/js/popper.min.js"></script>
-            <script src="/js/bootstrap.min.js"></script>
-            {% block javascripts %}{% endblock %}
+                {% endif %}
+            </ul>
         </body>
     </html>
+</div></nav>{% for label, messages in app.flashes %}
+<div class="container">
+    <div class="alert alert-{{ label }}">
+        {% for message in messages %}
+            <p>
+                {{ message | raw }}
+            </p>
+        {% endfor %}
+    </div>
+</div>{% endfor %}{% block body %}{% endblock %}<script src="/js/jquerry.min.js"></script><script src="/js/popper.min.js"></script><script src="/js/bootstrap.min.js"></script>{% block javascripts %}{% endblock %}</body></html>
