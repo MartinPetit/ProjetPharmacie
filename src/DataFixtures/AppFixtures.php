@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\User;
 use App\Entity\Product;
+use App\Entity\Role;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -22,6 +23,18 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr-FR');
 
+        $adminRole = new Role();
+        $adminRole->setTitle('ROLE_ADMIN');
+        $manager->persist($adminRole);
+
+        $adminUser = new User();
+        $adminUser->setFirstName('Martin')
+                  ->setLastName('Petit')
+                  ->setEmail('martinpetit1998@gmail.com')
+                  ->setHash($this->encoder->encodePassword($adminUser, 'Martin92'))
+                  ->addUserRole($adminRole);
+
+        $manager->persist($adminUser);
         
         //Gestion des utilisateurs
 
