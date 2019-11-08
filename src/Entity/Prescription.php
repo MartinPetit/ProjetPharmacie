@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PrescriptionRepository")
@@ -23,6 +24,7 @@ class Prescription
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="prescriptions")
+     * @Assert\NotBlank()
      */
     private $users;
 
@@ -33,8 +35,21 @@ class Prescription
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $message;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    public function __construct()
+{
+    $this->createdAt = new \DateTime('now');
+}
+
+
 
     public function getId(): ?int
     {
@@ -85,6 +100,18 @@ class Prescription
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

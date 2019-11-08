@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes ordonnances
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+<h1> Mes ordonnances </h1>
+
+       <table class="table table-bordered ">
+  <thead class="thead-light">
+    <tr class="t1">
+      <th scope="col">message</th>
+      <th scope="col">date</th>
+      <th scope="col">fichier</th>
+    </tr>
+  </thead>
+
+
+
+        {% for prescription in prescriptions %}
+
+        <tbody>
+
+            <tr>
+
+ 
+
+
+            <td>{{prescription.message}} </td>
+            
+            <td>{{ prescription.createdAt|date('d/m/Y') }} </td>
+
+            <td> <a href = "/public/uploads/{{prescription.brochureFileName}}" > Fichier Ordonnance </a></td>
+
+            </tr>
+
+            </tbody>
+
+            {% endfor %}
+
+            </table>
+
+                
+
+           
+
+    
+    </div>
+
+
+</div>
+
+{% endblock %}
