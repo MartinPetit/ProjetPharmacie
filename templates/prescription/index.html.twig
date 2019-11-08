@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ordonnance{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5">
+
+<h1> Deposer votre Ordonnance </h1>
+
+                                {{ form_start(form) }}
+
+                                
+                                {{form_label(form.mail)}}
+                                {{ form_widget(form.mail, {value : username}) }} <br>
+                                {{form_label(form.brochureFilename)}}
+                                {{ form_widget(form.brochureFilename)}} <br>
+                                {{form_label(form.message)}}
+                                {{ form_widget(form.message)}} <br>
+        
+
+                                    <button type ="submit" class="btn btn-primary"> Envoyer </button:type>
+
+                                {{ form_end(form) }}
+
+
+</div>
+
+{% endblock %}

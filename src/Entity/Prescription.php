@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,93 +17,74 @@ class Prescription
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $mail;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="prescriptions")
      */
-    private $nuser;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Doctor", inversedBy="prescriptions")
-     */
-    private $ndoctor;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product")
-     */
-    private $idProduit;
+    private $users;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $duration;
+    private $brochureFilename;
 
-    public function __construct()
-    {
-        $this->idProduit = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $message;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNuser(): ?User
+    public function getMail(): ?string
     {
-        return $this->nuser;
+        return $this->mail;
     }
 
-    public function setNuser(?User $nuser): self
+    public function setMail(string $mail): self
     {
-        $this->nuser = $nuser;
+        $this->mail = $mail;
 
         return $this;
     }
 
-    public function getNdoctor(): ?Doctor
+    public function getUsers(): ?User
     {
-        return $this->ndoctor;
+        return $this->users;
     }
 
-    public function setNdoctor(?Doctor $ndoctor): self
+    public function setUsers(?User $users): self
     {
-        $this->ndoctor = $ndoctor;
+        $this->users = $users;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Product[]
-     */
-    public function getIdProduit(): Collection
+    public function getBrochureFilename()
     {
-        return $this->idProduit;
+        return $this->brochureFilename;
     }
 
-    public function addIdProduit(Product $idProduit): self
+    public function setBrochureFilename($brochureFilename)
     {
-        if (!$this->idProduit->contains($idProduit)) {
-            $this->idProduit[] = $idProduit;
-        }
+        $this->brochureFilename = $brochureFilename;
 
         return $this;
     }
 
-    public function removeIdProduit(Product $idProduit): self
+    public function getMessage(): ?string
     {
-        if ($this->idProduit->contains($idProduit)) {
-            $this->idProduit->removeElement($idProduit);
-        }
-
-        return $this;
+        return $this->message;
     }
 
-    public function getDuration(): ?string
+    public function setMessage(string $message): self
     {
-        return $this->duration;
-    }
-
-    public function setDuration(string $duration): self
-    {
-        $this->duration = $duration;
+        $this->message = $message;
 
         return $this;
     }

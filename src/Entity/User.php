@@ -59,20 +59,22 @@ class User implements UserInterface
 
     public $passwordConfirm;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Prescription", mappedBy="nuser")
-     */
-    private $prescriptions;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Role", mappedBy="users")
      */
     private $userRoles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Prescription", mappedBy="users")
+     */
+    private $prescriptions;
+
     public function __construct()
     {
-        $this->prescriptions = new ArrayCollection();
+
         $this->userRoles = new ArrayCollection();
+        $this->prescriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -170,36 +172,6 @@ class User implements UserInterface
 
     public function eraseCredentials(){}
 
-    /**
-     * @return Collection|Prescription[]
-     */
-    public function getPrescriptions(): Collection
-    {
-        return $this->prescriptions;
-    }
-
-    public function addPrescription(Prescription $prescription): self
-    {
-        if (!$this->prescriptions->contains($prescription)) {
-            $this->prescriptions[] = $prescription;
-            $prescription->setNuser($this);
-        }
-
-        return $this;
-    }
-
-    public function removePrescription(Prescription $prescription): self
-    {
-        if ($this->prescriptions->contains($prescription)) {
-            $this->prescriptions->removeElement($prescription);
-            // set the owning side to null (unless already changed)
-            if ($prescription->getNuser() === $this) {
-                $prescription->setNuser(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Role[]
@@ -224,6 +196,37 @@ class User implements UserInterface
         if ($this->userRoles->contains($userRole)) {
             $this->userRoles->removeElement($userRole);
             $userRole->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Prescription[]
+     */
+    public function getPrescriptions(): Collection
+    {
+        return $this->prescriptions;
+    }
+
+    public function addPrescription(Prescription $prescription): self
+    {
+        if (!$this->prescriptions->contains($prescription)) {
+            $this->prescriptions[] = $prescription;
+            $prescription->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrescription(Prescription $prescription): self
+    {
+        if ($this->prescriptions->contains($prescription)) {
+            $this->prescriptions->removeElement($prescription);
+            // set the owning side to null (unless already changed)
+            if ($prescription->getUsers() === $this) {
+                $prescription->setUsers(null);
+            }
         }
 
         return $this;
