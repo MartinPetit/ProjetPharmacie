@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\User;
 use App\Entity\Product;
+use App\Entity\Rendezvous;
 use App\Entity\Role;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -81,6 +82,28 @@ class AppFixtures extends Fixture
 
 
             $manager->persist($product);
+        }
+
+        //Gestion reservations teleconsultation
+        for ($i= 1; $i <= 20; $i++) {
+            $rendezvous = new Rendezvous();
+
+            $createdAt = $faker->dateTimeBetween('-7 days');
+            $date = $faker->dateTimeBetween('-1 day');
+
+            $duration = 1;
+
+            $endDate = (clone $date)->modify("+$duration hours ");
+
+            $booker = $users[mt_rand(0, count($users) - 1 )];
+
+            $rendezvous->setClient($booker)
+                        ->setDate($date)
+                        ->setEndDate($endDate)
+                        ->setCreatedAt($createdAt);
+
+                        $manager->persist($rendezvous);
+
         }
 
         $manager->flush();

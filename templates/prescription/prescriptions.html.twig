@@ -5,51 +5,49 @@
 
 {% block body %}
 
-<div class="container">
-<h1> Mes ordonnances </h1>
+    <div class="container">
+        <h1>
+            Mes ordonnances
+        </h1>
 
-       <table class="table table-bordered ">
-  <thead class="thead-light">
-    <tr class="t1">
-      <th scope="col">message</th>
-      <th scope="col">date</th>
-      <th scope="col">fichier</th>
-    </tr>
-  </thead>
-
-
-
-        {% for prescription in prescriptions %}
-
-        <tbody>
-
-            <tr>
-
- 
+        <table class="table table-bordered ">
+            <thead class="thead-light">
+                <tr class="t1">
+                    <th scope="col">message</th>
+                    <th scope="col">date</th>
+                    <th scope="col">fichier</th>
+                </tr>
+            </thead>
 
 
-            <td>{{prescription.message}} </td>
-            
-            <td>{{ prescription.createdAt|date('d/m/Y') }} </td>
+            {% for prescription in prescriptions %}
 
-            <td> <a href = "/public/uploads/{{prescription.brochureFileName}}" > Fichier Ordonnance </a></td>
+                <tbody>
 
-            </tr>
+                    <tr>
 
-            </tbody>
+
+                        <td>{{prescription.message}}
+                        </td>
+
+                        <td>{{ prescription.createdAt|date('d/m/Y') }}
+                        </td>
+                        {#<td> <a href =" {{ path ('show_file', {'brochureFilename' : prescription.brochureFileName }) }}"> Fichier Ordonnance </a></td>#}
+                        <td>
+                            <a target = "blank" href="{{ asset('uploads/' ~ prescription.brochureFilename) }}">Ordonnance</a>
+                        </td>
+
+
+                    </tr>
+
+                </tbody>
 
             {% endfor %}
 
-            </table>
+        </table>
 
-                
 
-           
-
-    
     </div>
 
 
-</div>
-
-{% endblock %}
+</div>{% endblock %}

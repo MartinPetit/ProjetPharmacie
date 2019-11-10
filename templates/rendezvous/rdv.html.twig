@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prise de rendez vous{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1> Prendre rendez vous pour la téléconsultation </h1>
+
+        {{form_start(form)}}
+
+        <div class="alert alert-light">
+            <h2> Choisissez la date et l'heure du rendez vous </h2>
+            <div class="row">
+                <div class="col">
+                    {{form_row(form.Date)}}
+                </div>
+                <div class="col">
+
+                    {{form_row(form.endDate)}}
+                
+                </div>
+
+            </div>
+        </div>
+
+        <div style="text-align:center">
+
+                <button type="submit" class="btn btn-success">
+                    Confirmer
+                </button>
+
+            </div>
+
+             {{form_end(form)}}
+
+            {{ form_rest(form) }}
+
+    </div>
+{% endblock %}

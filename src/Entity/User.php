@@ -70,11 +70,17 @@ class User implements UserInterface
      */
     private $prescriptions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rendezvous", mappedBy="client")
+     */
+    private $rendezvouses;
+
     public function __construct()
     {
 
         $this->userRoles = new ArrayCollection();
         $this->prescriptions = new ArrayCollection();
+        $this->rendezvouses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -226,6 +232,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($prescription->getUsers() === $this) {
                 $prescription->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rendezvous[]
+     */
+    public function getRendezvouses(): Collection
+    {
+        return $this->rendezvouses;
+    }
+
+    public function addRendezvouse(Rendezvous $rendezvouse): self
+    {
+        if (!$this->rendezvouses->contains($rendezvouse)) {
+            $this->rendezvouses[] = $rendezvouse;
+            $rendezvouse->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRendezvouse(Rendezvous $rendezvouse): self
+    {
+        if ($this->rendezvouses->contains($rendezvouse)) {
+            $this->rendezvouses->removeElement($rendezvouse);
+            // set the owning side to null (unless already changed)
+            if ($rendezvouse->getClient() === $this) {
+                $rendezvouse->setClient(null);
             }
         }
 
