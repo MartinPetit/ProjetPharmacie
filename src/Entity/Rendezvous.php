@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -26,6 +27,7 @@ class Rendezvous
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Date(message = "la date d'arrivée doit être au bon format")
      */
     private $Date;
 
@@ -43,7 +45,12 @@ class Rendezvous
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
+      
+
+
+    
     }
+
 
     public function getDuration() {
         $diff = $this->endDate->diff($this->Date);

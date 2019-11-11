@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateInterval;
 use App\Entity\Rendezvous;
 use App\Form\RendezvousType;
 use App\Repository\RendezvousRepository;
@@ -28,8 +29,13 @@ class RendezvousController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
             
+            $time = $rendezvous->getDate();
+            $test = clone($time);
+            $rendezvous->setEndDate($test->add(new DateInterval('PT30M')));
+            
 
             $rendezvous->setClient($user);
+
 
 
             $manager->persist($rendezvous);

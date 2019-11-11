@@ -8,19 +8,15 @@
 
         {{form_start(form)}}
 
-        <div class="alert alert-light">
+        <div class="alert alert-light" style = "text-align:center">
             <h2> Choisissez la date et l'heure du rendez vous </h2>
-            <div class="row">
-                <div class="col">
-                    {{form_row(form.Date)}}
-                </div>
-                <div class="col">
-
-                    {{form_row(form.endDate)}}
+         
                 
-                </div>
+                    {{form_widget(form)}}
+                
+                
 
-            </div>
+        
         </div>
 
         <div style="text-align:center">

@@ -30,6 +30,7 @@ class RendezvousType extends AbstractType
             'placeholder' => $placeholder, 
 
             'widget' => 'single_text'
+            
         ]
         ];
     }
@@ -39,7 +40,7 @@ class RendezvousType extends AbstractType
     {
         $builder
             ->add('Date', DateTimeType::class, $this->getConfiguration("date et heure du rendz vous", "La date à laquelle vous avez pris le rendez vous"))
-            ->add('endDate', DateTimeType::class, $this->getConfiguration("date et heure de fin du rendez vous", "La date théorique de fin du rendez vous"))
+            
 
         ;
     }
