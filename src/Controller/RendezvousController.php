@@ -24,6 +24,7 @@ class RendezvousController extends AbstractController
         $rendezvous = new Rendezvous();
         $form = $this->createForm(RendezvousType::class, $rendezvous);
 
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -36,13 +37,19 @@ class RendezvousController extends AbstractController
 
             $rendezvous->setClient($user);
 
-
-
+           if (!$rendezvous->isBookableDates()) {
+               $this->addFlash(
+                   'warning',
+                   'dates indisponibles'
+               );
+           } else {
             $manager->persist($rendezvous);
             $manager->flush();
 
             return $this->redirectToRoute('account_rendezvous');
- 
+           }
+
+
            
         }
 
@@ -94,4 +101,6 @@ class RendezvousController extends AbstractController
 
 
     } 
+
+    
 }
