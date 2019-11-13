@@ -29,55 +29,110 @@ class RendezvousController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
-            
+
             $time = $rendezvous->getDate();
-            $test = clone($time);
-            $rendezvous->setEndDate($test->add(new DateInterval('PT30M')));
-            
+            $test = clone ($time);
+            $rendezvous->setEndDate($test->add(new DateInterval('PT60M')));
+
 
             $rendezvous->setClient($user);
 
-           if (!$rendezvous->isBookableDates()) {
-               $this->addFlash(
-                   'warning',
-                   'dates indisponibles'
-               );
-           } else {
-            $manager->persist($rendezvous);
-            $manager->flush();
-
-            return $this->redirectToRoute('account_rendezvous');
-           }
 
 
-           
+            $rdv = $this->getDoctrine()
+                ->getRepository(Rendezvous::class)
+                ->findAll();
+
+
+            $notAvailableDays = [];
+            foreach ($rdv as $rendezVous) {
+                $resultat = range(
+                    $rendezVous->getDate()->getTimestamp(),
+                    $rendezVous->getEndDate()->getTimestamp(),
+                    1 * 60
+                );
+                $days = array_map(function ($dayTimestamp) {
+                    return new \DateTime(date('d-m-Y H:i', $dayTimestamp));
+                }, $resultat);
+                $notAvailableDays = array_merge($notAvailableDays, $days);
+            }
+
+            $resultats = range(
+                $rendezvous->getDate()->getTimestamp(),
+                $rendezvous->getEndDate()->getTimestamp(),
+                1 * 60
+            );
+
+
+            $days = array_map(function ($dayTimestamp) {
+                return new \DateTime(date('d-m-Y H:i', $dayTimestamp));
+            }, $resultats);
+
+
+
+
+            $dayss = array_map(function ($day) {
+                return $day->format('d-m-Y à H:i');
+            }, $days);
+            $notAvailable = array_map(function ($day) {
+                return $day->format('d-m-Y à H:i');
+            }, $notAvailableDays);
+
+            foreach ($dayss as $day) {
+
+                if (array_search($day, $notAvailable) !== false) {
+                    $this->addFlash(
+                        'warning',
+                        'dates indisponibles'
+                    );
+                    break;
+                } else {
+                    $manager->persist($rendezvous);
+                    $manager->flush();
+                    return $this->redirectToRoute('account_rendezvous');
+                }
+            }
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
         return $this->render('rendezvous/rdv.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
-   
 
-     /**
+
+
+
+    /**
      * @Route("/MesRendezVous", name = "account_rendezvous")
      * 
      */
 
-    public function showall(RendezvousRepository $repo) {
+    public function showall(RendezvousRepository $repo)
+    {
 
         $users = $this->getUser();
 
         $id = $users->getId();
-    
-        
+
+
 
         $rendezvous = $repo->findByClient($id);
         return $this->render('rendezvous/Mesrendezvous.html.twig', [
             'rendezvous' => $rendezvous
         ]);
-
     }
 
 
@@ -87,20 +142,18 @@ class RendezvousController extends AbstractController
      * 
      */
 
-    public function delete(Rendezvous $rdv, ObjectManager $manager) {
+    public function delete(Rendezvous $rdv, ObjectManager $manager)
+    {
         $manager->remove($rdv);
         $manager->flush();
 
         $this->addFlash(
-            'success',  
-            "Le rendez vous du {$rdv->getDate()->format('d-m-Y à H:i:s')} a bien été supprimé");
-        
+            'success',
+            "Le rendez vous du {$rdv->getDate()->format('d-m-Y à H:i:s')} a bien été supprimé"
+        );
+
 
 
         return $this->redirectToRoute("account_rendezvous");
-
-
-    } 
-
-    
+    }
 }

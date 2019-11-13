@@ -42,52 +42,18 @@ class Rendezvous
      */
     private $endDate;
 
+   
+
 
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
     
-      
-
 
     
     }
-
-
-    public function isBookableDates() {
-        $notAvailableDays = $this->client->getNotAvailableDays();
-
-        $bookingDays = $this->getDays();
-
-        $days = array_map(function($day) {
-            return $day->format('d-m-Y à H:i:s');
-        }, $bookingDays);
-
-        $notAvailable = array_map(function($day) {
-            return $day->format('d-m-Y à H:i:s');
-        }, $notAvailableDays);
-
-        foreach ($days as $day) {
-            if(array_search($day, $notAvailable) !== false) return false;
-        }
-
-        return true;
-
-
-    }
-
-    public function getDays() {
-        $resultat = range(
-            $this->Date->getTimestamp(),
-            $this->endDate->getTimestamp(),
-            29 * 60
-        );
-        $days = array_map(function($dayTimestamp) {
-            return new \DateTime(date('d-m-Y H:i:s', $dayTimestamp));
-        }, $resultat);
-
-        return $days;
-    }
+    
+   
 
   
 

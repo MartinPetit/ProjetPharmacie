@@ -83,22 +83,7 @@ class User implements UserInterface
         $this->rendezvouses = new ArrayCollection();
     }
 
-    public function getNotAvailableDays() {
-        $notAvailableDays = [];
-
-        foreach ($this->rendezvouses as $rendezvous) {
-            $resultat = range(
-                $rendezvous->getDate()->getTimestamp(),
-                $rendezvous->getEndDate()->getTimestamp(),
-                29 * 60
-            );
-            $days = array_map(function($dayTimestamp) {
-                return new \DateTime(date('d-m-Y H:i:s', $dayTimestamp));
-            }, $resultat);
-            $notAvailableDays = array_merge($notAvailableDays, $days);
-            return $notAvailableDays;
-        }
-    }
+    
 
     
 

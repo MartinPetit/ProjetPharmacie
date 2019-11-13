@@ -15,31 +15,17 @@ class RendezvousType extends AbstractType
 {
 
     
-     /**
-     * Permet d'avoir la configuration de base d'un champ
-     * 
-     * @param string $label
-     * @param string $placeholder
-     * @return array
-     */
-    
-    private function getConfiguration($label, $placeholder) {
-        return  [
-            'label' => $label, 
-        'attr' => [
-            'placeholder' => $placeholder, 
-
-            'widget' => 'single_text'
-            
-        ]
-        ];
-    }
-
+     
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Date', DateTimeType::class, $this->getConfiguration("date et heure du rendz vous", "La date à laquelle vous avez pris le rendez vous"))
+            ->add('Date', DateTimeType::class, [
+                "label" => "Choisissez votre rendezvous",
+                "date_widget" => "single_text",
+                "time_widget" => "single_text", 
+                
+            ])
             
 
         ;

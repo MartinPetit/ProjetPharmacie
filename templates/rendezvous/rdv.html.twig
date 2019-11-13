@@ -2,13 +2,17 @@
 
 {% block title %}Prise de rendez vous{% endblock %}
 
+{% block stylesheets %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <h1> Prendre rendez vous pour la téléconsultation </h1>
 
         {{form_start(form)}}
 
-        <div class="alert alert-light" style = "text-align:center">
+        <div class="alert alert-light " style = "text-align:center">
             <h2> Choisissez la date et l'heure du rendez vous </h2>
          
                 
@@ -32,4 +36,18 @@
             {{ form_rest(form) }}
 
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+
+
+<script type="text/javascript">
+    $(function() {
+        $('#rendezvous_Date_date, $rendezvous_Date_time').datetimepicker();
+    });
+</script>
 {% endblock %}
