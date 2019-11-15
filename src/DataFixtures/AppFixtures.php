@@ -91,6 +91,8 @@ class AppFixtures extends Fixture
             $createdAt = $faker->dateTimeBetween('-7 days');
             $date = $faker->dateTimeBetween('-1 day');
 
+
+
             $duration = 1;
 
             $endDate = (clone $date)->modify("+$duration hours ");

@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container" style = "overflow:hidden;">
         <h1> Prendre rendez vous pour la téléconsultation </h1>
 
         {{form_start(form)}}
@@ -23,7 +23,7 @@
         
         </div>
 
-        <div style="text-align:center">
+        <div style="text-align:center " class = "mb-5">
 
                 <button type="submit" class="btn btn-success">
                     Confirmer
@@ -34,6 +34,41 @@
              {{form_end(form)}}
 
             {{ form_rest(form) }}
+
+
+
+
+         
+
+            <div class="bg-light py-3 px-3 mb-5" style = " border: 1px solid black">
+                <h1 style = "text-align:center">
+                    Les prochains rendez vous
+                </h1>
+    
+
+
+
+            {% for rdv in events %}
+    
+        <dl class="row" style = "text-align:center">
+            <dt class="col-md-4">date et heure du rendez vous </dt>
+            <dd class="col-md-8">{{rdv.Date | date('d/m/Y à  H:i:s')}}</dd>
+            <dt class="col-md-4">Date de fin </dt>
+            <dd class="col-md-8">{{rdv.endDate | date('d/m/Y à  H:i:s')}}</dd>
+
+
+
+
+            
+
+           
+        </dl>
+
+        <hr>
+
+        {% endfor %}
+          </div>
+</div>
 
     </div>
 {% endblock %}
@@ -46,8 +81,6 @@
 
 
 <script type="text/javascript">
-    $(function() {
-        $('#rendezvous_Date_date, $rendezvous_Date_time').datetimepicker();
-    });
+
 </script>
 {% endblock %}

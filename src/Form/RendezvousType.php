@@ -22,8 +22,9 @@ class RendezvousType extends AbstractType
         $builder
             ->add('Date', DateTimeType::class, [
                 "label" => "Choisissez votre rendezvous",
-                "date_widget" => "single_text",
-                "time_widget" => "single_text", 
+                "widget" => "single_text",
+                
+                
                 
             ])
             
