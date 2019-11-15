@@ -8,21 +8,33 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use App\Form\DataTransformer\FrenchToDateTimeTransformer;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class RendezvousType extends AbstractType
 {
+    private $transformer;
 
+    public function __construct(FrenchToDateTimeTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
     
      
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Date', DateTimeType::class, [
+            ->add('Date', TextType::class, [
                 "label" => "Choisissez votre rendezvous",
-                "widget" => "single_text",
+                "attr" => [     
+                    'html5' => false,
+                    "data-target" => "#rendezvous_Date"
+                ]
+                    
+                
                 
                 
                 
@@ -30,6 +42,8 @@ class RendezvousType extends AbstractType
             
 
         ;
+
+        $builder->get('Date')->addModelTransformer($this->transformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)

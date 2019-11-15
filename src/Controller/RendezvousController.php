@@ -76,10 +76,10 @@ class RendezvousController extends AbstractController
 
 
             $dayss = array_map(function ($day) {
-                return $day->format('d-m-Y à H:i');
+                return $day->format('d-m-Y H:i');
             }, $days);
             $notAvailable = array_map(function ($day) {
-                return $day->format('d-m-Y à H:i');
+                return $day->format('d-m-Y H:i');
             }, $notAvailableDays);
 
             foreach ($dayss as $day) {

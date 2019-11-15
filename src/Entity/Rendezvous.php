@@ -28,7 +28,8 @@ class Rendezvous
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\Date(message = "la date d'arrivée doit être au bon format")
+     * @Assert\Date(message = "la date doit être au bon format")
+     * @Assert\GreaterThan("today", message = "Veuillez prendre un rendez vous à une date ulterieure à celle d'aujourd'hui")
      */
     private $Date;
 
