@@ -1,20 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SearchController!{% endblock %}
+{% block title %}Nos Produits
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container">
+        <h1 class="my-3" style="text-align : center">
+            Voici les produits en stock
+        </h1>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/Projets Symfony/PharmaciePasteur/src/Controller/SearchController.php'|file_link(0) }}">src/Controller/SearchController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/Projets Symfony/PharmaciePasteur/templates/search/index.html.twig'|file_link(0) }}">templates/search/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-3">
+                <div class="card bg-light text-dark border-dark mb-3">
+
+                    <img src="{{ product.image }}" alt="Image du produit" style="height : 200px; width: 90%; display:block" class="ml-auto mr-auto mt-3">
+
+                    <div class="card-body">
+                        <h2 class="card-title" style="text-align : center">
+                            {{ product.name }}
+                        </h2>
+                        <p class="card-text">
+                            {{ product.description }}
+                        </p>
+                         <p class="card-text">
+                            {{ product.categories.name }}
+                        </p>
+                        
+
+                        <div class="card-text  row align-items-center">
+
+                            <div class=" col-6">
+
+                                <h2>{{product.price}}&euro;</h2>
+                            </div>
+
+
+                            <div class=" col-6">
+                                <a href=" {{ path ('show_products', {'slug' : product.slug }) }}" class="btn btn-secondary">
+                                    Voir le produit
+                                </a>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+
 {% endblock %}
+
+
