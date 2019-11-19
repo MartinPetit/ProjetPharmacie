@@ -3,14 +3,15 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Product;
+use App\Entity\Category;
 use App\Entity\Rendezvous;
-use App\Entity\Role;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
@@ -56,6 +57,18 @@ class AppFixtures extends Fixture
 
 
         }
+
+        //Ajout categories
+
+        for ($i = 1; $i<= 5; $i++) {
+            $category = new Category;
+            $name = $faker->word();
+            $category->setName($name);
+            $manager->persist($category);
+
+            $categorys[] = $category;
+
+        }
         
         
         
@@ -70,14 +83,17 @@ class AppFixtures extends Fixture
             $brand = $faker->word();
             $description = $faker->sentence();
             $content = '<p>' . join('</p><p>', $faker->paragraphs(4)) . '</p>';
-            
+           
+            $cat = $categorys[mt_rand(0, count($categorys) - 1 )]; 
 
             $product->setName($name)
                 ->setImage($image)
                 ->setBrand($brand)
                 ->setPrice(mt_rand(5,200))
                 ->setDescription($description)
-                ->setContent($content);
+                ->setContent($content)
+                ->setCategories($cat);
+                
                 
 
 

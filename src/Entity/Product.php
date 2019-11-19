@@ -54,6 +54,11 @@ class Product
     private $content;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
+     */
+    private $categories;
+
+    /**
      * Permet d'initialiser le slug
      * 
      * @ORM\PrePersist
@@ -154,6 +159,18 @@ class Product
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getCategories(): ?Category
+    {
+        return $this->categories;
+    }
+
+    public function setCategories(?Category $categories): self
+    {
+        $this->categories = $categories;
 
         return $this;
     }
