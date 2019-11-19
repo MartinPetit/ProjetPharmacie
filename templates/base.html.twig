@@ -79,7 +79,9 @@
             </ul>
         </body>
     </html>
-</div></nav>{% for label, messages in app.flashes %}
+</div></nav>
+
+{% for label, messages in app.flashes %}
 <div class="container">
     <div class="alert alert-{{ label }}">
         {% for message in messages %}
@@ -88,4 +90,6 @@
             </p>
         {% endfor %}
     </div>
-</div>{% endfor %}{% block body %}{% endblock %}<script src="/js/jquerry.min.js"></script><script src="/js/popper.min.js"></script><script src="/js/bootstrap.min.js"></script>{% block javascripts %}{% endblock %}</body></html>
+</div>
+
+{% endfor %}{% block body %}{% endblock %}<script src="/js/jquerry.min.js"></script><script src="/js/popper.min.js"></script><script src="/js/bootstrap.min.js"></script>{% block javascripts %}{% endblock %}</body></html>

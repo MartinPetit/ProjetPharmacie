@@ -23,7 +23,7 @@ class RendezvousController extends AbstractController
     {
         $rendezvous = new Rendezvous();
 
-        
+
         $form = $this->createForm(RendezvousType::class, $rendezvous);
 
 
@@ -32,7 +32,7 @@ class RendezvousController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
 
-            
+
             $time = $rendezvous->getDate();
             $test = clone ($time);
             $rendezvous->setEndDate($test->add(new DateInterval('PT60M')));
@@ -46,7 +46,7 @@ class RendezvousController extends AbstractController
                 ->getRepository(Rendezvous::class)
                 ->findAll();
 
-            
+            // on stocke dans un tableau $notAvailableDays les dates de rendez vous déja prises
 
             $notAvailableDays = [];
             foreach ($rdv as $rendezVous) {
@@ -61,6 +61,8 @@ class RendezvousController extends AbstractController
                 $notAvailableDays = array_merge($notAvailableDays, $days);
             }
 
+            // on stocke dans le tableau days les dates rentrées par l'utilisateur lors de l'envoi du formulaire
+
             $resultats = range(
                 $rendezvous->getDate()->getTimestamp(),
                 $rendezvous->getEndDate()->getTimestamp(),
@@ -72,7 +74,7 @@ class RendezvousController extends AbstractController
                 return new \DateTime(date('d-m-Y H:i', $dayTimestamp));
             }, $resultats);
 
-
+            // On compare les deux tableaux
 
 
             $dayss = array_map(function ($day) {
@@ -100,29 +102,29 @@ class RendezvousController extends AbstractController
 
 
 
-        
 
 
-       
+
+
 
         $events = $this->getDoctrine()
-        ->getManager()
-        ->createQuery('SELECT e FROM App\Entity\Rendezvous e WHERE e.Date > CURRENT_DATE() AND e.createdAt >= CURRENT_DATE() ORDER BY e.Date')
-        ->getResult();
+            ->getManager()
+            ->createQuery('SELECT e FROM App\Entity\Rendezvous e WHERE e.Date > CURRENT_DATE() AND e.createdAt >= CURRENT_DATE() ORDER BY e.Date')
+            ->getResult();
 
-    dump($events);
-        
-        
+        dump($events);
+
+
 
 
         return $this->render('rendezvous/rdv.html.twig', [
             'form' => $form->createView(),
             'events' => $events
-            
+
         ]);
     }
 
-    
+
 
 
 
@@ -141,6 +143,9 @@ class RendezvousController extends AbstractController
 
 
         $rendezvous = $repo->findByClient($id);
+
+
+
         return $this->render('rendezvous/Mesrendezvous.html.twig', [
             'rendezvous' => $rendezvous
         ]);
@@ -167,6 +172,4 @@ class RendezvousController extends AbstractController
 
         return $this->redirectToRoute("account_rendezvous");
     }
-
-    
 }

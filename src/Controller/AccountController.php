@@ -27,9 +27,9 @@ class AccountController extends AbstractController
         $error = $utils->getLastAuthenticationError();
         $username = $utils->getLastUsername();
 
-        
+
         return $this->render('account/login.html.twig', [
-            'hasError' =>$error !== null,
+            'hasError' => $error !== null,
             'username' => $username
         ]);
     }
@@ -37,14 +37,14 @@ class AccountController extends AbstractController
     /**
      * @Route("/logout", name="account_logout")
      */
-    public function logout() {
-
-    }
+    public function logout()
+    { }
 
     /**
      * @Route("/register", name="account_register")
      */
-    public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder) {
+    public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    {
         $user = new User;
 
         $form = $this->createForm(RegistrationType::class, $user);
@@ -58,18 +58,17 @@ class AccountController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            
-$this->addFlash(
-                'success', 
+
+            $this->addFlash(
+                'success',
                 "Vous êtes enregistré, un mail vous a été envoyé"
-              );
-              return $this->redirectToRoute('account_login');
+            );
+            return $this->redirectToRoute('account_login');
         }
 
         return $this->render('account/registration.html.twig', [
             'form' => $form->createView()
         ]);
-
     }
 
 
@@ -82,7 +81,8 @@ $this->addFlash(
      */
 
 
-    public function profile(Request $request, ObjectManager $manager) {
+    public function profile(Request $request, ObjectManager $manager)
+    {
 
         $user = $this->getUser();
 
@@ -95,11 +95,11 @@ $this->addFlash(
             $manager->flush();
 
             $this->addFlash(
-                'success', 
+                'success',
                 "Vos modifications ont été prises en compte"
-              );
+            );
 
-              return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('homepage');
         }
 
 
@@ -109,7 +109,6 @@ $this->addFlash(
         return $this->render('account/profile.html.twig', [
             'form' => $form->createView()
         ]);
-
     }
 
     /**
@@ -118,7 +117,8 @@ $this->addFlash(
      */
 
 
-    public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, ObjectManager $manager) {
+    public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, ObjectManager $manager)
+    {
 
         $passwordUpdate = new PasswordUpdate();
 
@@ -133,7 +133,6 @@ $this->addFlash(
             if (!password_verify($passwordUpdate->getOldPassword(), $user->getHash())) {
                 //gerer l'erreur
                 $form->get('oldPassword')->addError(new FormError("Le mot de passe que vous avez rentré n'est pas votre mot de passe actuel"));
-           
             } else {
                 $newPassword = $passwordUpdate->getNewPassword();
                 $hash = $encoder->encodePassword($user, $newPassword);
@@ -145,21 +144,16 @@ $this->addFlash(
                 $manager->flush();
 
                 $this->addFlash(
-                    'success', 
+                    'success',
                     'Votre mot de passe a bien été modifié'
                 );
 
                 return $this->redirectToRoute('homepage');
-
             }
-            
         }
 
         return $this->render('account/password.html.twig', [
             'form' => $form->createView()
         ]);
-
     }
-
-
 }

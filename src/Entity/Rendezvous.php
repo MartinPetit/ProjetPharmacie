@@ -48,7 +48,7 @@ class Rendezvous
 
     public function __construct()
     {
-        $test = $this->createdAt = new \DateTime('now');
+        $this->createdAt = new \DateTime('now');
         
     
 
