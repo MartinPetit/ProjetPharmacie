@@ -83,7 +83,6 @@ class User implements UserInterface
         $this->rendezvouses = new ArrayCollection();
     }
 
-    
 
     
 
@@ -271,5 +270,10 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getEmail();
     }
 }

@@ -1,8 +1,43 @@
 easy_admin:
     entities:
-        # List the entity class name you want to manage
-        - App\Entity\Product
-        - App\Entity\User
-        - App\Entity\Prescription
-        - App\Entity\Rendezvous
-        - App\Entity\Category
+        Product:
+            class: App\Entity\Product
+            new:
+                fields:
+                    - name
+                    - brand
+                    - price
+                    - description
+                    - content
+                    - { property: 'image', type: 'url' }
+                    - categories
+                
+
+            list:
+                fields:
+                    - name
+                    - brand
+                    - price
+                    - description
+                    - content
+                    - categories
+                    - { property: 'image', type: 'image'}
+        User:
+            class: App\Entity\User
+            
+        Prescription:
+            class: App\Entity\Prescription
+        Rendezvous:
+            class: App\Entity\Rendezvous
+        Category:
+            class: App\Entity\Category
+            
+
+    site_name: '<strong>Pharmacie Pasteur</strong>'
+
+    formats: 
+        datetime: 'd/m/Y H:i '
+
+    design:
+        brand_color: 'green'
+        
