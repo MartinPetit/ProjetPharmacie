@@ -34,6 +34,11 @@
     color: rgba(255,255,255,0.5);
 }
 
+.btn-secondary{
+    color : black;
+    background-color : rgba(255, 255, 255, 0.1);
+}
+
 .test {
     margin-top: 4px;
 }

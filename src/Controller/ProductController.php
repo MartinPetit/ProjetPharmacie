@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,28 +16,29 @@ class ProductController extends AbstractController
      * @Route("/products", name="index_product")
      * Permet d'afficher tous les produits 
      */
-    public function index(ProductRepository $repo)
+    public function index(ProductRepository $repo, CategoryRepository $repoc)
     {
         $products = $repo->findAll();
 
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('handleSearch'))
-            ->add('Name', TextType::class, [
+            ->add('nom', TextType::class, [
+                'label' => false,
                 'attr' => [
                     'placeholder' => 'Rechercher un  produit'
                 ]
             ])
-            ->add('search', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary'
-                ]
-            ])
+            
 
             ->getForm();
 
+        $categories = $repoc->findAll();
+        
+
         return $this->render('product/index.html.twig', [
             'form' => $form->createView(),
-            'products' => $products
+            'products' => $products,
+            'categories' => $categories
         ]);
     }
 
@@ -45,7 +47,7 @@ class ProductController extends AbstractController
      */
 
     public function handlesearch(Request $request, ProductRepository $productrepo) {
-        $querry = $request->request->get('form')['query'];
+        $querry = $request->request->get('form')['nom'];
         if($querry) {
             $products = $productrepo->findByName($querry);
         }
@@ -71,8 +73,23 @@ class ProductController extends AbstractController
     {
         $product = $repo->findOneBySlug($slug);
 
+
         return $this->render('product/show.html.twig', [
             'product' => $product
+        ]);
+    }
+
+    /**
+     * @Route("/products/categories/{id}", name = "show_catego")
+     */
+
+    public function showC($id, CategoryRepository $repocc)
+    {
+        $catego = $repocc->findOneById($id);
+        
+
+        return $this->render('category/show.html.twig', [
+            'catego' => $catego
         ]);
     }
 }

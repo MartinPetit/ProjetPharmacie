@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Categorie
+	{{catego.name}}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="my-3" style="text-align : center">
+			{{catego.name}}
+		</h1>
+	</div>
+
+
+	<div class="row">
+		{% for products in catego.products %}
+			<div class="col-md-3">
+				<div class="card bg-light text-dark border-dark mb-3">
+
+					<img src="{{ products.image }}" alt="Image du produit" style="height : 200px; width: 90%; display:block" class="ml-auto mr-auto mt-3">
+
+					<div class="card-body">
+						<h2 class="card-title" style="text-align : center">
+							{{ products.name }}
+						</h2>
+						<p class="card-text">
+							{{ products.description }}
+						</p>
+
+						<div class="card-text  row align-items-center">
+
+							<div class=" col-6">
+
+								<h2>{{products.price}}&euro;</h2>
+							</div>
+
+
+							<div class=" col-6">
+								<a href=" {{ path ('show_products', {'slug' : products.slug }) }}" class="btn btn-secondary">
+									Voir le produit
+								</a>
+
+							</div>
+
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+		{% endfor %}
+	</div>
+
+
+{% endblock %}
+

@@ -5,3 +5,4 @@ easy_admin:
         - App\Entity\User
         - App\Entity\Prescription
         - App\Entity\Rendezvous
+        - App\Entity\Category
