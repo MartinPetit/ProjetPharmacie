@@ -83,6 +83,11 @@ class User implements UserInterface
         $this->rendezvouses = new ArrayCollection();
     }
 
+    public function getName()
+    {
+        return $this->getFirstName().' '.$this->getLastName();
+    }
+
 
     
 

@@ -1,0 +1,25 @@
+strong {
+    color:black;
+}
+
+body {
+    background-color: lightgrey;
+}
+
+.sidebar {
+    background-color: lightgrey;
+    color: black;
+}
+
+.main-sidebar {
+    background-color: lightgrey;
+    
+}
+
+span {
+    color:black;
+}
+
+i.fa.fa-fw.fa-user-circle.user-avatar {
+    color:black;
+}

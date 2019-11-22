@@ -1,36 +1,148 @@
 easy_admin:
+    list:
+        actions:
+            - { name: 'edit', icon: 'pencil', label: false }
+            - { name: 'delete', icon: 'trash-alt', label: false }
+            - { name: 'new', icon: 'plus', label: false }
+            - { name: 'search', icon: 'search', label: false }
+            - { name: 'list', label: false}
+
+    edit:
+        actions:
+            - { name: 'edit', label: 'Editer'}
+            - { name: 'delete', icon: 'trash-alt', label: "Supprimer"}
+            - { name: 'list', label: false }
+            
+
+
+
+
+    user:
+        name_property_path: 'name'
+
     entities:
         Product:
             class: App\Entity\Product
-            new:
+            form:
                 fields:
-                    - name
-                    - brand
-                    - price
-                    - description
-                    - content
-                    - { property: 'image', type: 'url' }
-                    - categories
+                    - { property: 'name', label: 'Nom'}
+                    - { property: 'brand', label: 'Marque du produit'}
+                    - { property: 'price', label: 'Prix'}
+                    - { property: 'description', label: 'Description'}
+                    - { property: 'content', label: 'Contenu'}
+                    - { property: 'image', type: 'url', label: 'Image'}
+                    - { property: 'categories', label: 'Categories'}
+            
+            new: 
+                title: "Ajouter un produit"
+
+            edit:
+                title: "Editer un produit"
                 
 
             list:
                 fields:
-                    - name
-                    - brand
-                    - price
-                    - description
-                    - content
-                    - categories
+                    - { property: 'name', label: 'Nom'}
+                    - { property: 'brand', label: 'Marque'}
+                    - { property: 'price', label: 'Prix'}
+                    - { property: 'description', label: 'Description'}
+                    - { property: 'content', label: 'Contenu'}
+                    - { property: 'categories', label: 'Categories'}
                     - { property: 'image', type: 'image'}
+                title: "Tous les produits"
         User:
             class: App\Entity\User
+            list: 
+                title: "Utilisateurs"
+                fields:
+                    - { property: 'firstName', label: 'Prénom'}
+                    - { property: 'lastName', label: 'Nom'}
+                    - { property: 'email', label: 'Email'}
+                    - { property: 'hash', label: 'Mot de passe'}
+                    - { property: 'userRoles', label: 'Role utilisateur'}
+            form:
+                fields:
+                    - { property: 'firstName', label: 'Prénom'}
+                    - { property: 'lastName', label: 'Nom'}
+                    - { property: 'email', label: 'Email'}
+                    - { property: 'hash', label: 'Mot de passe'}
+                    - { property: 'userRoles', label: 'Role utilisateur'}
+            new:
+                title: "Ajouter un utilisateur"
+            
+            edit:
+                title: "Editer un utilisateur"
+
+                
+             
             
         Prescription:
             class: App\Entity\Prescription
+            list:
+                title: "Ordonnances"
+                fields:
+                    - { property: 'mail', label: 'Email'}
+                    - { property: 'brochureFilename', label: 'Fichiers', type: 'file'}
+                    - { property: 'createdAt', label: 'Date de création'}
+                    - { property: 'users', label: 'Utilisateurs'}
+            form:
+                fields:
+                    - { property: 'mail', label: 'Email'}
+                    - { property: 'brochureFilename', label: 'Fichiers', type: 'file'}
+                    - { property: 'createdAt', label: 'Date de création'}
+                    - { property: 'users', label: 'Utilisateurs'}
+                
+            new:
+                title: "Ajouter une ordonnance"
+
+            edit:
+                title: "Editer une ordonnance"
+
+                    
+        
         Rendezvous:
             class: App\Entity\Rendezvous
+            list:
+                title: "Rendez-vous"
+                fields:
+                    - { property: 'Date', label: 'Date de début', type: 'datetime'}
+                    - { property: 'createdAt', label: 'Date de création', type: 'datetime'}
+                    - { property: 'endDate', label: 'Date de fin', type: 'datetime'}
+                    - client
+            form:
+                fields:
+                    - { property: 'Date', label: 'Date de début', type: 'datetime'}
+                    - { property: 'createdAt', label: 'Date de création', type: 'datetime'}
+                    - { property: 'endDate', label: 'Date de fin', type: 'datetime'}
+                    - client
+
+            new:
+                title: "Ajouter un rendez-vous"
+
+            edit:
+                title: "Editer un rendez-vous"
+
+
+                
+            
         Category:
             class: App\Entity\Category
+            list: 
+                title: "Categories"
+                fields: 
+                    - { property: 'name', label: 'Nom'}
+                    - { property: 'products', label: 'Produits'}
+            form:
+                fields:
+                    - { property: 'name', label: 'Nom'}
+                    - { property: 'products', label: 'Produits'}
+            
+            new:
+                title: "Ajouter une catégorie"
+
+            edit:
+                title: "Editer une catégorie"
+
             
 
     site_name: '<strong>Pharmacie Pasteur</strong>'
@@ -40,4 +152,14 @@ easy_admin:
 
     design:
         brand_color: 'green'
+    
+        menu:
+            - { entity: 'User', icon: 'user', label: Utilisateurs }
+            - { entity: 'Product', label: 'Produits', icon: 'capsules'}
+            - { entity: 'Category', label: 'Categories', icon: 'tag' }
+            - { entity: 'Prescription', label: 'Ordonnances', icon: 'file-medical' }
+            - { entity: 'Rendezvous', label: 'Rendez-vous', icon: 'handshake' }
+        assets:
+            css:
+                - 'css/admin.css'
         
