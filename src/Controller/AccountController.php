@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\AccountType;
 use App\Entity\PasswordUpdate;
+use App\Form\ForgottenPasswordType;
 use App\Form\RegistrationType;
 use App\Form\PasswordUpdateType;
 use App\Repository\UserRepository;
@@ -167,9 +168,15 @@ class AccountController extends AbstractController
     public function forgottenPassword(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer,TokenGeneratorInterface $tokenGenerator, UserRepository $repo, ObjectManager $manager)
     {
 
+        $form = $this->createForm(ForgottenPasswordType::class);
+            $form->handleRequest($request);
+
         if ($request->isMethod('POST')) {
 
-            $email = $request->request->get('email');
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $email = $form->getData();
+                
 
             $user = $repo->findOneByEmail($email);
             /* @var $user User */
@@ -201,8 +208,11 @@ class AccountController extends AbstractController
 
             return $this->redirectToRoute('homepage');
         }
+    }
 
-        return $this->render('account/forgotten_password.html.twig');
+        return $this->render('account/forgotten_password.html.twig',[
+            'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -211,7 +221,9 @@ class AccountController extends AbstractController
     public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder, UserRepository $repo, ObjectManager $manager)
     {
 
+
         if ($request->isMethod('POST')) {
+            
 
             $user = $repo->findOneByResetToken($token);
             /* @var $user User */
@@ -220,6 +232,7 @@ class AccountController extends AbstractController
                 $this->addFlash('danger', 'Token Inconnu');
                 return $this->redirectToRoute('homepage');
             }
+
 
             $user->setResetToken(null);
             $user->setHash($passwordEncoder->encodePassword($user, $request->request->get('password')));
