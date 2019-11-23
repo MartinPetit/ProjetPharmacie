@@ -7,15 +7,19 @@ use App\Form\AccountType;
 use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
 use App\Form\PasswordUpdateType;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class AccountController extends AbstractController
 {
@@ -156,4 +160,83 @@ class AccountController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/forgottenPassword", name="app_forgotten_password")
+     */
+    public function forgottenPassword(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer,TokenGeneratorInterface $tokenGenerator, UserRepository $repo, ObjectManager $manager)
+    {
+
+        if ($request->isMethod('POST')) {
+
+            $email = $request->request->get('email');
+
+            $user = $repo->findOneByEmail($email);
+            /* @var $user User */
+            $nom = $user->getFirstname();
+
+            if ($user === null) {
+                $this->addFlash('danger', 'Email Inconnu');
+                return $this->redirectToRoute('homepage');
+            }
+            $token = $tokenGenerator->generateToken();
+
+
+                $user->setResetToken($token);
+                $manager->flush();
+
+            $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $message = (new \Swift_Message('Mot de passe oublié'))
+                ->setFrom('martinpetit1998@gmail.com')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    "Bonjour " .$nom. " veuillez cliquer sur ce lien pour réinitialiser votre mot de passe : " . $url,
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
+            $this->addFlash('success', 'Un mail vous a été envoyé, veuillez vérifier votre boite mail !');
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('account/forgotten_password.html.twig');
+    }
+
+    /**
+     * @Route("/reset_password/{token}", name="app_reset_password")
+     */
+    public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder, UserRepository $repo, ObjectManager $manager)
+    {
+
+        if ($request->isMethod('POST')) {
+
+            $user = $repo->findOneByResetToken($token);
+            /* @var $user User */
+
+            if ($user === null) {
+                $this->addFlash('danger', 'Token Inconnu');
+                return $this->redirectToRoute('homepage');
+            }
+
+            $user->setResetToken(null);
+            $user->setHash($passwordEncoder->encodePassword($user, $request->request->get('password')));
+            $manager->flush();
+
+            $this->addFlash('success', 'Mot de passe mis à jour');
+
+            return $this->redirectToRoute('account_login');
+        }else {
+
+            return $this->render('account/reset_password.html.twig', [
+                'token' => $token
+                ]);
+        }
+
+    }
+
+
+
 }
