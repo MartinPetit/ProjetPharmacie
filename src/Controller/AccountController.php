@@ -225,12 +225,16 @@ class AccountController extends AbstractController
         $form = $this->createForm(ResetPasswordType::class);
 
         $form->handleRequest($request);
-        $mdp = $form->get('password')->getData();
+
 
         
-        
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $mdp = $form->get('password')->getData();
 
         if ($request->isMethod('POST')) {
+
+            
             
 
             $user = $repo->findOneByResetToken($token);
@@ -249,7 +253,7 @@ class AccountController extends AbstractController
             $this->addFlash('success', 'Mot de passe mis à jour');
 
             return $this->redirectToRoute('account_login');
-        }else {
+        } }else {
 
             return $this->render('account/reset_password.html.twig', [
                 'token' => $token,
