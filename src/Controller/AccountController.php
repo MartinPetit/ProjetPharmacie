@@ -8,6 +8,7 @@ use App\Entity\PasswordUpdate;
 use App\Form\ForgottenPasswordType;
 use App\Form\RegistrationType;
 use App\Form\PasswordUpdateType;
+use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -221,6 +222,13 @@ class AccountController extends AbstractController
     public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder, UserRepository $repo, ObjectManager $manager)
     {
 
+        $form = $this->createForm(ResetPasswordType::class);
+
+        $form->handleRequest($request);
+        $mdp = $form->get('password')->getData();
+
+        
+        
 
         if ($request->isMethod('POST')) {
             
@@ -235,7 +243,7 @@ class AccountController extends AbstractController
 
 
             $user->setResetToken(null);
-            $user->setHash($passwordEncoder->encodePassword($user, $request->request->get('password')));
+            $user->setHash($passwordEncoder->encodePassword($user, $mdp));
             $manager->flush();
 
             $this->addFlash('success', 'Mot de passe mis à jour');
@@ -244,7 +252,8 @@ class AccountController extends AbstractController
         }else {
 
             return $this->render('account/reset_password.html.twig', [
-                'token' => $token
+                'token' => $token,
+                'form' => $form->createView()
                 ]);
         }
 
