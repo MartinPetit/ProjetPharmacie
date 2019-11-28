@@ -67,7 +67,7 @@ class AccountController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Vous êtes enregistré, un mail vous a été envoyé"
+                "Vous êtes enregistré, vous pouvez vous connécté"
             );
             return $this->redirectToRoute('account_login');
         }

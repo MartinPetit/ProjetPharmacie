@@ -3,12 +3,12 @@
 {% block title %}Nos Produits
 {% endblock %}
 
+{% block stylesheets %}
+ <link rel="stylesheet" href="/css/product.css">
+{% endblock %}
+
 {% block body %}
-    <div class="container">
-        <h1 class="my-3" style="text-align : center">
-            Voici les produits en stock
-        </h1>
-    </div>
+    
 
     <div class=" mt-5">
 
@@ -23,7 +23,7 @@
         </div>
         <div class="col-md-5">
             {% for category in categories %}
-                <a href= "{{path('show_catego', {'id' : category.id })}}" class = "btn btn-secondary">{{category.name}}</a>
+                <a id = "c1" href= "{{path('show_catego', {'id' : category.id })}}" class = "btn btn-secondary">{{category.name}}</a>
             {% endfor %}
         </div>
 
