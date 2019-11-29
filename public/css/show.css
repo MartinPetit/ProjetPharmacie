@@ -30,6 +30,11 @@ a.nav-link:hover {
 
 .rightA {
     text-align : right;
+    
+}
+
+a.btn.btn-outline-secondary {
+    background-color: white;
 }
 
 .descr {

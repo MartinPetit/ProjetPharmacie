@@ -21,7 +21,7 @@
 									Rechercher
 			    </button>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 pr-0">
             {% for category in categories %}
                 <a id = "c1" href= "{{path('show_catego', {'id' : category.id })}}" class = "btn btn-secondary">{{category.name}}</a>
             {% endfor %}
@@ -36,7 +36,7 @@
     <div class="row">
         {% for product in products %}
             <div class="col-md-3">
-                <div class="card bg-light text-dark border-dark mb-3">
+                <div class="card bg-light text-dark mb-3" style="border : 2px solid black; border-radius: 30px">
 
                     <img src="{{ product.image }}" alt="Image du produit" style="height : 200px; width: 90%; display:block" class="ml-auto mr-auto mt-3">
 
