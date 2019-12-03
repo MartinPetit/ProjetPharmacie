@@ -81,6 +81,8 @@ class User implements UserInterface
      */
     protected $resetToken;
 
+    
+
     public function __construct()
     {
 
@@ -303,4 +305,6 @@ class User implements UserInterface
     {
         $this->resetToken = $resetToken;
     }
+
+   
 }

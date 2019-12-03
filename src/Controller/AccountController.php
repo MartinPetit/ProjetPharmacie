@@ -5,11 +5,11 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\AccountType;
 use App\Entity\PasswordUpdate;
-use App\Form\ForgottenPasswordType;
 use App\Form\RegistrationType;
-use App\Form\PasswordUpdateType;
 use App\Form\ResetPasswordType;
+use App\Form\PasswordUpdateType;
 use App\Repository\UserRepository;
+use App\Form\ForgottenPasswordType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -49,7 +49,7 @@ class AccountController extends AbstractController
     /**
      * @Route("/register", name="account_register")
      */
-    public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, TokenGeneratorInterface $tokenGenerator, \Swift_Mailer $mailer)
     {
         $user = new User;
 
@@ -60,14 +60,16 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user, $user->getHash());
             $user->setHash($hash);
+            
 
             $manager->persist($user);
             $manager->flush();
 
+            
 
             $this->addFlash(
                 'success',
-                "Vous êtes enregistré, vous pouvez vous connécté"
+                "Vous êtes enregistré, vous allez recevoir un mail pour vailder votre inscription"
             );
             return $this->redirectToRoute('account_login');
         }
@@ -76,7 +78,6 @@ class AccountController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
 
 
 
