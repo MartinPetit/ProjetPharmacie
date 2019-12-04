@@ -34,6 +34,19 @@ class RendezvousRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findMesRdv(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT e FROM App\Entity\Rendezvous e WHERE e.Date > CURRENT_DATE() AND e.createdAt >= CURRENT_DATE() ORDER BY e.Date'
+
+        );
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Rendezvous[] Returns an array of Rendezvous objects
     //  */

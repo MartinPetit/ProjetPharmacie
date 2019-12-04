@@ -76,3 +76,15 @@ a.btn.btn-outline-secondary {
     color : rgba(255,255,255,0.5);
 
 }
+
+#footer-content {
+    background-color: white;
+    border-top : 5px solid #77b300;
+}
+
+#copyright {
+    background-color: black;
+    color:white;
+}
+
+
