@@ -19,14 +19,14 @@ class RendezvousRepository extends ServiceEntityRepository
         parent::__construct($registry, Rendezvous::class);
     }
 
-    public function findDatedujour(): array
+    public function findRendezVous(): array
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
             'SELECT p
             FROM App\Entity\Rendezvous p
-            WHERE p.createdAt BETWEEN :firstdate AND :lastdate'
+            WHERE p.endDate < CURRENT_DATE()'
 
         );
 

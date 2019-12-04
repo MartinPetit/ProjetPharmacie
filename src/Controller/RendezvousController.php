@@ -112,7 +112,26 @@ class RendezvousController extends AbstractController
             ->createQuery('SELECT e FROM App\Entity\Rendezvous e WHERE e.Date > CURRENT_DATE() AND e.createdAt >= CURRENT_DATE() ORDER BY e.Date')
             ->getResult();
 
-        dump($events);
+
+
+    // Suppression automatique Rendez vous qui ont une date antèrieure à la date du jour
+
+        $remove = $this->getDoctrine()
+                ->getRepository(Rendezvous::class)
+                ->findRendezVous();
+            dump($remove);
+
+            foreach ($remove as $rdvRemove ) {
+                $manager->remove($rdvRemove);
+                $manager->flush();
+            }
+
+
+
+        
+
+
+        
 
 
 
@@ -172,4 +191,8 @@ class RendezvousController extends AbstractController
 
         return $this->redirectToRoute("account_rendezvous");
     }
+
+
+    
+
 }
