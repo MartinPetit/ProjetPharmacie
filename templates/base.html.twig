@@ -117,31 +117,36 @@
 
         <!-- Content -->
         <h5 class="text-uppercase mt-4">Pharmacie Pasteur</h5>
-        <p>Cette pharmacie a vu le jour en 2012 et vous accueil tous les jours afin de vous offrir les meilleurs services possibles </p>
-
+        {% if app.user %}
+        <p>Cette pharmacie a vu le jour en 2012 et vous accueil tous les jours afin de vous offrir les meilleurs services possibles</p>
+        {% else %}
+        <p>Cette pharmacie a vu le jour en 2012 et vous accueil tous les jours afin de vous offrir les meilleurs services possibles. </br>
+        Inscrivez vous pour profiter de toutes les fonctionnalités : <a href="{{path('account_register')}}">Inscription</a>
+         </p>
+        {% endif %}
       </div>
       <!-- Grid column -->
 
       <hr class="clearfix w-100 d-md-none pb-3">
 
       <!-- Grid column -->
-      <div class="col-md-2 mb-md-0 mb-3 mt-3" style = "text-align:center">
+      <div class="col-md-3 mb-md-0 mb-3 mt-3" style = "text-align:center">
 
         <!-- Links -->
-        <h5 class="text-uppercase">Links</h5>
+        <h5 class="text-uppercase"> Liens</h5>
 
         <ul class="list-unstyled">
           <li>
-            <a href="#!">Link 1</a>
+            <a href="{{path('homepage')}}">Accueil</a>
           </li>
           <li>
-            <a href="#!">Link 2</a>
+            <a href="{{path('index_product')}}">Produits</a>
           </li>
           <li>
-            <a href="#!">Link 3</a>
+            <a href="{{path('prescription')}}">Ordonnance</a>
           </li>
           <li>
-            <a href="#!">Link 4</a>
+            <a href="{{path('rendezvous_prise')}}">Teleconsultation</a>
           </li>
         </ul>
 
@@ -149,49 +154,25 @@
       <!-- Grid column -->
 
       <!-- Grid column -->
-      <div class="col-md-2 mb-md-0 mb-3 mt-3" style = "text-align:center">
+      <div class="col-md-3 mb-md-0 mb-3 mt-3" style = "text-align:center">
 
         <!-- Links -->
-        <h5 class="text-uppercase">Links</h5>
+        <h5 class="text-uppercase">Nous contacter</h5>
 
         <ul class="list-unstyled">
           <li>
-            <a href="#!">Link 1</a>
+            <a target ="blank" href="mailto:pharmacie.pasteur-garches@orange.fr">pharmacie.pasteur-garches@orange.fr</a>
           </li>
           <li>
-            <a href="#!">Link 2</a>
+            <p style = "color : black">0674466314</p>
           </li>
           <li>
-            <a href="#!">Link 3</a>
-          </li>
-          <li>
-            <a href="#!">Link 4</a>
+            <p style = "color : black">1 avenue Henri Bergson </br> 92380 Garches</p>
           </li>
         </ul>
 
       </div>
 
-        <div class="col-md-2 mb-md-0 mb-3 mt-3" style = "text-align:center">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Links</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!">Link 1</a>
-          </li>
-          <li>
-            <a href="#!">Link 2</a>
-          </li>
-          <li>
-            <a href="#!">Link 3</a>
-          </li>
-          <li>
-            <a href="#!">Link 4</a>
-          </li>
-        </ul>
-
-      </div>
       <!-- Grid column -->
 
     </div>
