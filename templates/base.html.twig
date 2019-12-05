@@ -1,204 +1,197 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>
-            {% block title %}Pharmacie Pasteur
-            {% endblock %}
-        </title>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Pharmacie Pasteur
+			{% endblock %}
+		</title>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="icon" type="image/png" href="https://media.istockphoto.com/photos/drug-store-picture-id182913205?k=6&m=182913205&s=612x612&w=0&h=yn8mSwWGISdiikdnB_0KFMzdffP4JEbqtiDxT_gX9Ro=" />
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/show.css">
-        <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet"> {% block stylesheets %}{% endblock %}
-        </head>
-        <body>
-            <nav class="navbar navbar-expand-lg bg-light navbar-light" >
+		<link rel="icon" type="image/png" href="https://media.istockphoto.com/photos/drug-store-picture-id182913205?k=6&m=182913205&s=612x612&w=0&h=yn8mSwWGISdiikdnB_0KFMzdffP4JEbqtiDxT_gX9Ro="/>
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/css/show.css">
+		<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet"> {% block stylesheets %}{% endblock %}
+		</head>
+		<body>
+			<div class="wrapper">
+				<nav class="navbar navbar-expand-lg bg-light navbar-light">
 
-                <a class="navbar-brand" href="{{ path ('homepage') }}">
-                    <img src="https://media.istockphoto.com/photos/drug-store-picture-id182913205?k=6&m=182913205&s=612x612&w=0&h=yn8mSwWGISdiikdnB_0KFMzdffP4JEbqtiDxT_gX9Ro=" alt="Logo" style="width:40px;">
-                </a>
+					<a class="navbar-brand" href="{{ path ('homepage') }}">
+						<img src="https://media.istockphoto.com/photos/drug-store-picture-id182913205?k=6&m=182913205&s=612x612&w=0&h=yn8mSwWGISdiikdnB_0KFMzdffP4JEbqtiDxT_gX9Ro=" alt="Logo" style="width:40px;">
+					</a>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-                <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ path ('homepage') }}">Accueil</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ path ('index_product') }}">Nos produits</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ path ('rendezvous_prise') }}">Teleconsultation</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ path ('prescription') }}">Ordonnance</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ml-auto">
-                        {% if app.user %}
-                            <li class="nav-item">
-                                <a href="{{path('account_logout')}}" class="nav-link test">
-                                    Déconnexion
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-
-
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    Mon profil
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{path('account_profile')}}">Mes informations</a>
-                                    <a class="dropdown-item" href="{{path('account_password')}}">Modifier mon </br> mot de passe</a>
-                                    <a class="dropdown-item" href="{{path('account_prescription')}}">Mes ordonnances</a>
-                                    <a class="dropdown-item" href="{{path('account_rendezvous')}}">Mes rendez vous</a>
-                            </li>
-                        </div>
+					<div class="collapse navbar-collapse" id="navbarColor01">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="{{ path ('homepage') }}">Accueil</a>
+							</li>
+						</ul>
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="{{ path ('index_product') }}">Nos produits</a>
+							</li>
+						</ul>
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="{{ path ('rendezvous_prise') }}">Teleconsultation</a>
+							</li>
+						</ul>
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="{{ path ('prescription') }}">Ordonnance</a>
+							</li>
+						</ul>
+						<ul class="navbar-nav ml-auto">
+							{% if app.user %}
+								<li class="nav-item">
+									<a href="{{path('account_logout')}}" class="nav-link test">
+										Déconnexion
+									</a>
+								</li>
+								<li class="nav-item dropdown">
 
 
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a href="{{path('account_register')}}" class="nav-link">
-                            Inscription
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{path('account_login')}}" class="nav-link">
-                            Connexion
-                        </a>
-                    </li>
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+										Mon profil
+									</button>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" href="{{path('account_profile')}}">Mes informations</a>
+										<a class="dropdown-item" href="{{path('account_password')}}">Modifier mon
+										</br>
+										mot de passe</a>
+									<a class="dropdown-item" href="{{path('account_prescription')}}">Mes ordonnances</a>
+									<a class="dropdown-item" href="{{path('account_rendezvous')}}">Mes rendez vous</a>
+								</li>
+							</div>
 
-                {% endif %}
-            </ul>
-        </body>
-    </html>
-</div></nav>
 
-{% for label, messages in app.flashes %}
-<div class="container">
-    <div class="alert alert-{{ label }}">
-        {% for message in messages %}
-            <p>
-                {{ message | raw }}
-            </p>
-        {% endfor %}
-    </div>
+						</li>
+					{% else %}
+						<li class="nav-item">
+							<a href="{{path('account_register')}}" class="nav-link">
+								Inscription
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{path('account_login')}}" class="nav-link">
+								Connexion
+							</a>
+						</li>
+
+					{% endif %}
+				</ul>
+			</nav>
+
+			
+
+
+			{% for label, messages in app.flashes %}
+				<div class="container">
+					<div class="alert alert-{{ label }}">
+						{% for message in messages %}
+							<p>
+								{{ message | raw }}
+							</p>
+						{% endfor %}
+					</div>
+				</div>
+
+			{% endfor %}
+			{% block body %}{% endblock %}
+	<div class="push"></div>
 </div>
 
-{% endfor %}
-{% block body %}{% endblock %}
+<div class="footer">
+<!-- Footer --><footer class="page-footer font-small white pt-4">
+	<div
+		id="footer-content">
 
-<!-- Footer -->
-<footer class="page-footer font-small white pt-4">
+		<!-- Footer Links -->
+		<div
+			class="container-fluid text-center text-md-left">
 
-<div id="footer-content">
+			<!-- Grid row -->
+			<div
+				class="row">
 
-  <!-- Footer Links -->
-  <div class="container-fluid text-center text-md-left">
+				<!-- Grid column -->
+				<div
+					class="col-md-5 mt-md-0 mt-3 ml-5">
 
-    <!-- Grid row -->
-    <div class="row">
+					<!-- Content -->
+					<h5 class="text-uppercase mt-4">Pharmacie Pasteur</h5>
+					{% if app.user %}
+						<p>Cette pharmacie a vu le jour en 2012 et vous accueil tous les jours afin de vous offrir les meilleurs services possibles</p>
+					{% else %}
+						<p>Cette pharmacie a vu le jour en 2012 et vous accueil tous les jours afin de vous offrir les meilleurs services possibles.</p>
+					</br>
+					Inscrivez vous pour profiter de toutes les fonctionnalités :
+					<a href="{{path('account_register')}}">Inscription</a>
+				</p>
+			{% endif %}
+		</div>
+		<!-- Grid column -->
 
-      <!-- Grid column -->
-      <div class="col-md-5 mt-md-0 mt-3 ml-5">
+		<hr
+		class="clearfix w-100 d-md-none pb-3">
 
-        <!-- Content -->
-        <h5 class="text-uppercase mt-4">Pharmacie Pasteur</h5>
-        {% if app.user %}
-        <p>Cette pharmacie a vu le jour en 2012 et vous accueil tous les jours afin de vous offrir les meilleurs services possibles</p>
-        {% else %}
-        <p>Cette pharmacie a vu le jour en 2012 et vous accueil tous les jours afin de vous offrir les meilleurs services possibles. </br>
-        Inscrivez vous pour profiter de toutes les fonctionnalités : <a href="{{path('account_register')}}">Inscription</a>
-         </p>
-        {% endif %}
-      </div>
-      <!-- Grid column -->
+		<!-- Grid column -->
+		<div
+			class="col-md-3 mb-md-0 mb-3 mt-3" style="text-align:center">
 
-      <hr class="clearfix w-100 d-md-none pb-3">
+			<!-- Links -->
+			<h5 class="text-uppercase">
+				Liens</h5>
 
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3 mt-3" style = "text-align:center">
+			<ul class="list-unstyled">
+				<li>
+					<a href="{{path('homepage')}}">Accueil</a>
+				</li>
+				<li>
+					<a href="{{path('index_product')}}">Produits</a>
+				</li>
+				<li>
+					<a href="{{path('prescription')}}">Ordonnance</a>
+				</li>
+				<li>
+					<a href="{{path('rendezvous_prise')}}">Teleconsultation</a>
+				</li>
+			</ul>
 
-        <!-- Links -->
-        <h5 class="text-uppercase"> Liens</h5>
+		</div>
+		<!-- Grid column -->
 
-        <ul class="list-unstyled">
-          <li>
-            <a href="{{path('homepage')}}">Accueil</a>
-          </li>
-          <li>
-            <a href="{{path('index_product')}}">Produits</a>
-          </li>
-          <li>
-            <a href="{{path('prescription')}}">Ordonnance</a>
-          </li>
-          <li>
-            <a href="{{path('rendezvous_prise')}}">Teleconsultation</a>
-          </li>
-        </ul>
+		<!-- Grid column -->
+		<div
+			class="col-md-3 mb-md-0 mb-3 mt-3" style="text-align:center">
 
-      </div>
-      <!-- Grid column -->
+			<!-- Links -->
+			<h5 class="text-uppercase">Nous contacter</h5>
 
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3 mt-3" style = "text-align:center">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Nous contacter</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a target ="blank" href="mailto:pharmacie.pasteur-garches@orange.fr">pharmacie.pasteur-garches@orange.fr</a>
-          </li>
-          <li>
-            <p style = "color : black">0674466314</p>
-          </li>
-          <li>
-            <p style = "color : black">1 avenue Henri Bergson </br> 92380 Garches</p>
-          </li>
-        </ul>
-
-      </div>
-
-      <!-- Grid column -->
-
-    </div>
-    <!-- Grid row -->
-
-  </div>
-  <!-- Footer Links -->
-
+			<ul class="list-unstyled">
+				<li>
+					<a target="blank" href="mailto:pharmacie.pasteur-garches@orange.fr">pharmacie.pasteur-garches@orange.fr</a>
+				</li>
+				<li>
+					<p style="color : black">0674466314</p>
+				</li>
+				<li>
+					<p style="color : black">1 avenue Henri Bergson
+			</br>
+		  	92380 Garches</p>
+	</li>
+</ul></div><!-- Grid column --></div><!-- Grid row --></div><!-- Footer Links --></div><!-- Copyright --><div id="copyright" class="footer-copyright text-center py-3">© 2019 by Martin Petit. All Rights Reserved</div><!-- Copyright --></footer><!-- Footer -->
 </div>
 
-  <!-- Copyright -->
-  <div id = "copyright" class="footer-copyright text-center py-3">
-  
-    © 2019 by Martin Petit. All Rights Reserved
 
-  </div>
-  <!-- Copyright -->
+</body>
 
+</html>
 
-
-</footer>
-<!-- Footer -->
-
-
-
-
-
-
-<script src="/js/jquerry.min.js"></script><script src="/js/popper.min.js"></script><script src="/js/bootstrap.min.js"></script>{% block javascripts %}{% endblock %}</body></html>
+<script src="/js/jquerry.min.js"></script><script src="/js/popper.min.js"></script><script src="/js/bootstrap.min.js"></script>{% block javascripts %}{% endblock %}

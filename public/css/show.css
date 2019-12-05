@@ -88,3 +88,30 @@ a.btn.btn-outline-secondary {
 }
 
 
+    
+    html, body {
+    height: 100%;
+    }
+    
+    .wrapper 
+    {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -20px;
+    }
+    
+    .footer, .push {
+    height: 20px;
+    }
+    
+    .footer
+    {
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+ 
+    }
