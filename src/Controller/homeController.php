@@ -17,6 +17,7 @@ class homeController extends AbstractController
 
     /**
      * @Route("/", name="homepage")
+     * Page d'accueil
      */
 
     public function home()

@@ -14,15 +14,11 @@
 
 		{{form_start(form)}}
 
-		<div class="alert alert-light " style="text-align:center; border:2px solid black; border-radius : 30px">
+		<div class="alert alert-light" style="text-align:center; border:2px solid black; border-radius : 30px">
 			<h2>
-				Choisissez la date et l'heure du rendez vous
+				Choisissez la date et l'heure du rendez vous</br></br>
 			</h2>
-
-
-			{{form_widget(form)}}
-
-
+				{{form_widget(form)}}
 		</div>
 
 		<div style="text-align:center " class="mb-5">
@@ -33,9 +29,9 @@
 
 		</div>
 
-		{{form_end(form)}}
+			{{form_end(form)}}
 
-		{{ form_rest(form) }}
+			{{ form_rest(form) }}
 
 
 		<div class="bg-light py-3 px-3 mb-5" style=" border: 2px solid black; border-radius : 30px">
@@ -53,73 +49,44 @@
 					<dt class="col-md-4">Date de fin
 					</dt>
 					<dd class="col-md-8">{{rdv.endDate | date('d/m/Y à  H:i:s')}}</dd>
-
-
 				</dl>
 
 				<hr>
 
 			{% endfor %}
+
 		</div>
-	</div>
-
-</div>{% endblock %}{% block javascripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+</div>
 
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+{% endblock %}
 
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <script type="text/javascript">
+$(function () { $('#rendezvous_Date').datetimepicker({
+	inline: true,
+	sideBySide: true,
+	format: 'DD/MM/YYYY HH:mm',
+	defaultDate: null,
+	daysOfWeekDisabled: [0],
+	disabledHours: [0,1,2,3,4,5,6,7,8,13,14,20,21,22,23,24],
+	enabledHours: [9,10,11,12,15,16,17,18,19],
+	icons: {
+		time: 'far fa-clock',
+		date: 'far fa-calendar-alt',
+		up: 'fas fa-arrow-up',
+		down: 'fas fa-arrow-down',
+		previous: 'fas fa-chevron-left',
+		next: 'fas fa-chevron-right',
+		today: 'far fa-calendar-check',
+		clear: 'far fa-trash-alt',
+		close: 'fas fa-times'
+		}
+	});
+});
+</script>
 
-	$(function () {
-$('#rendezvous_Date').datetimepicker({
-inline: true,
-sideBySide: true,
-format: 'DD/MM/YYYY HH:mm',
-defaultDate: null,
-daysOfWeekDisabled: [0],
-disabledHours: [
-0,
-1,
-2,
-3,
-4,
-5,
-6,
-7,
-8,
-13,
-14,
-20,
-21,
-22,
-23,
-24
-],
-enabledHours: [
-9,
-10,
-11,
-12,
-15,
-16,
-17,
-18,
-19
-],
-icons: {
-time: 'far fa-clock',
-date: 'far fa-calendar-alt',
-up: 'fas fa-arrow-up',
-down: 'fas fa-arrow-down',
-previous: 'fas fa-chevron-left',
-next: 'fas fa-chevron-right',
-today: 'far fa-calendar-check',
-clear: 'far fa-trash-alt',
-close: 'fas fa-times'
-}
-});
-});
-</script>{% endblock %}
+{% endblock %}
 

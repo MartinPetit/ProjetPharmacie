@@ -17,6 +17,7 @@ class PrescriptionController extends AbstractController
     /**
      * @Route("/prescription", name="prescription")
      * @IsGranted("ROLE_USER")
+     * Depot ordonnance avec envoi de mail
      */
     public function new(Request $request, ObjectManager $manager, \Swift_Mailer $mailer)
     {
@@ -96,6 +97,7 @@ class PrescriptionController extends AbstractController
     /**
      * @Route("/Prescription", name = "account_prescription")
      * @IsGranted("ROLE_USER")
+     * Permet d'afficher "mes ordonnances"
      */
 
     public function show(PrescriptionRepository $repo)

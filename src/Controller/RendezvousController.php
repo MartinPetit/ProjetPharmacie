@@ -16,8 +16,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class RendezvousController extends AbstractController
 {
     /**
-     * @Route("/ordonnance", name="rendezvous_prise")
+     * @Route("/teleconsultation", name="rendezvous_prise")
      * @IsGranted("ROLE_USER")
+     * Page de prise de rendez vous teleconsultation
      */
     public function Priserendezvous(Request $request, ObjectManager $manager)
     {
@@ -135,7 +136,7 @@ class RendezvousController extends AbstractController
 
     /**
      * @Route("/MesRendezVous", name = "account_rendezvous")
-     * 
+     * Page "mes rendez vous"
      */
 
     public function showall(RendezvousRepository $repo)
@@ -160,7 +161,7 @@ class RendezvousController extends AbstractController
     /**
      * @Route("/MesRendezVous/{id}/delete", name = "rdv_delete")
      * @Security("is_granted('ROLE_USER') and user == rdv.getClient()", message = "vous n'avez pas les droits")
-     * 
+     * supprimer son rendez vous
      */
 
     public function delete(Rendezvous $rdv, ObjectManager $manager)

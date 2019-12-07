@@ -19,7 +19,7 @@ class ProductController extends AbstractController
      * Permet d'afficher tous les produits 
      */
     public function index(ProductRepository $repo, CategoryRepository $repoc, $page)
-    {   
+    {
 
         $limit = 8;
 
@@ -40,12 +40,12 @@ class ProductController extends AbstractController
                     'placeholder' => 'Rechercher un  produit'
                 ]
             ])
-            
+
 
             ->getForm();
 
         $categories = $repoc->findAll();
-        
+
 
         return $this->render('product/index.html.twig', [
             'form' => $form->createView(),
@@ -58,18 +58,19 @@ class ProductController extends AbstractController
 
     /**
      *@Route("/Search", name="handleSearch")
+     * Récupère la recherche de produit 
      */
-    public function handlesearch(Request $request, ProductRepository $productrepo) {
+    public function handlesearch(Request $request, ProductRepository $productrepo)
+    {
         $querry = $request->request->get('form')['nom'];
-        if($querry) {
+        if ($querry) {
             $products = $productrepo->findByName($querry);
         }
         dump($products);
         return $this->render('search/index.html.twig', [
             'products' => $products,
-            
+
         ]);
-        
     }
 
 
@@ -97,7 +98,7 @@ class ProductController extends AbstractController
     public function showC($id, CategoryRepository $repocc)
     {
         $catego = $repocc->findOneById($id);
-        
+
 
         return $this->render('category/show.html.twig', [
             'catego' => $catego

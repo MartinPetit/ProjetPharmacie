@@ -5,52 +5,47 @@
 
 {% block body %}
 
-    <div class="container mt-5">
-        
+	<div class="container mt-5">
 
-        <div class="bg-light py-3 px-3" style = " border: 1px solid black">
-                <h1 style = "text-align:center">
-            Mes ordonnances
-        </h1>
+        <div class="bg-light py-3 px-3" style=" border: 2px solid black; border-radius:30px">
+			
+            <h1 style="text-align:center">
+				Mes ordonnances
+			</h1>
 
-        <table class="table table-bordered ">
-            <thead class="thead-light">
-                <tr class="t1">
-                    <th scope="col">message</th>
-                    <th scope="col">date</th>
-                    <th scope="col">fichier</th>
-                </tr>
-            </thead>
-
-
-            {% for prescription in prescriptions %}
-
-                <tbody>
-
-                    <tr>
+			<table class="table table-bordered ">
+				
+                <thead class="thead-light">
+					<tr class="t1">
+						<th scope="col">message</th>
+						<th scope="col">date</th>
+						<th scope="col">fichier</th>
+					</tr>
+				</thead>
 
 
-                        <td>{{prescription.message}}
-                        </td>
+				{% for prescription in prescriptions %}
 
-                        <td>{{ prescription.createdAt|date('d/m/Y') }}
-                        </td>
-                        {#<td> <a href =" {{ path ('show_file', {'brochureFilename' : prescription.brochureFileName }) }}"> Fichier Ordonnance </a></td>#}
-                        <td>
-                            <a target = "blank" href="{{ asset('uploads/' ~ prescription.brochureFilename) }}">Ordonnance</a>
-                        </td>
+					<tbody>
+                        <tr>
+                            <td>
+                                {{prescription.message}}
+							</td>
+                            <td>
+                                {{ prescription.createdAt|date('d/m/Y') }}
+							</td>
+							<td>
+								<a target="blank" href="{{ asset('uploads/' ~ prescription.brochureFilename) }}">Ordonnance</a>
+							</td>
+                        </tr>
+                    </tbody>
 
+				{% endfor %}
 
-                    </tr>
-
-                </tbody>
-
-            {% endfor %}
-
-        </table>
+			</table>
+		</div>
+    </div>
 </div>
 
-    </div>
+{% endblock %}
 
-
-</div>{% endblock %}

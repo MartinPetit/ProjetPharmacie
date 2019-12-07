@@ -1,19 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Categorie
 	{{catego.name}}
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1 class="my-3" style="text-align : center">
-			{{catego.name}}
-		</h1>
-	</div>
+	
 
 
-	<div class="row">
+	<div class="row mt-5">
 		{% for products in catego.products %}
 			<div class="col-md-3">
 				<div class="card bg-light text-dark  mb-3" style = "border : 2px solid black; border-radius : 30px"> 
@@ -57,9 +52,7 @@
 
 	</div>
 
-	<div class="rightA mt-5">
-        <a class="btn btn-outline-secondary" href=" {{ path ('index_product') }}" role="button">Liste des produits</a>
-    </div>
+
 
 
 {% endblock %}

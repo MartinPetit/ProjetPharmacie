@@ -28,7 +28,7 @@ class RendezvousType extends AbstractType
     {
         $builder
             ->add('Date', TextType::class, [
-                "label" => "Choisissez votre rendezvous",
+                "label" => false,
                 "attr" => [     
                     'html5' => false,
                     "data-target" => "#rendezvous_Date"

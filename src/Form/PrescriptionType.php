@@ -16,22 +16,21 @@ class PrescriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            
+
             ->add('mail', EmailType::class, [
                 'label' => 'Email'
-    
+
             ])
-        
-        
+
+
             ->add('brochureFilename', FileType::class, [
-                'label' => 'Fichier Ordonnance(PDF)',])
-             
-            ->add('message', TextType::class, [
-                'label' => 'Message' 
-                
+                'label' => 'Fichier Ordonnance(PDF)',
             ])
-           
-        ;
+
+            ->add('message', TextType::class, [
+                'label' => 'Message'
+
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

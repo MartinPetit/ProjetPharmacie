@@ -13,16 +13,14 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 class AccountType extends ConfigType
 {
 
-     
+
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('firstName', TextType::class, $this->getConfiguration("Prénom", ""))
             ->add('lastName', TextType::class, $this->getConfiguration("Nom", ""))
-            ->add('email', EmailType::class, $this->getConfiguration("Email",""))
-
-        ;
+            ->add('email', EmailType::class, $this->getConfiguration("Email", ""));
     }
 
     public function configureOptions(OptionsResolver $resolver)

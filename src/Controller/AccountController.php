@@ -27,6 +27,7 @@ class AccountController extends AbstractController
 {
     /**
      * @Route("/login", name="account_login")
+     * Gere la connexion de l'utilisateur
      */
     public function login(AuthenticationUtils $utils)
     {
@@ -42,12 +43,14 @@ class AccountController extends AbstractController
 
     /**
      * @Route("/logout", name="account_logout")
+     * Deconnexion
      */
     public function logout()
     { }
 
     /**
      * @Route("/register", name="account_register")
+     * Permet à l'utilisateur de s'inscrire
      */
     public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, TokenGeneratorInterface $tokenGenerator, \Swift_Mailer $mailer)
     {
@@ -60,12 +63,12 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user, $user->getHash());
             $user->setHash($hash);
-            
+
 
             $manager->persist($user);
             $manager->flush();
 
-            
+
 
             $this->addFlash(
                 'success',
@@ -85,6 +88,7 @@ class AccountController extends AbstractController
     /**
      * @Route("/account/profile", name = "account_profile")
      * @IsGranted("ROLE_USER")
+     * Modification du profile de l'utilisateur
      */
 
 
@@ -121,6 +125,7 @@ class AccountController extends AbstractController
     /**
      * @Route("/account/password-update", name = "account_password")
      * @IsGranted("ROLE_USER")
+     * Changer son mot de passe 
      */
 
 
@@ -166,59 +171,61 @@ class AccountController extends AbstractController
 
     /**
      * @Route("/forgottenPassword", name="app_forgotten_password")
+     * Gere l'oubli de mot de passe 1ere partie
      */
-    public function forgottenPassword(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer,TokenGeneratorInterface $tokenGenerator, UserRepository $repo, ObjectManager $manager)
+    public function forgottenPassword(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator, UserRepository $repo, ObjectManager $manager)
     {
 
         $form = $this->createForm(ForgottenPasswordType::class);
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
         if ($request->isMethod('POST')) {
 
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $email = $form->getData();
+
+
+                $user = $repo->findOneByEmail($email);
                 
+                $nom = $user->getFirstname();
 
-            $user = $repo->findOneByEmail($email);
-            /* @var $user User */
-            $nom = $user->getFirstname();
-
-            if ($user === null) {
-                $this->addFlash('danger', 'Email Inconnu');
-                return $this->redirectToRoute('homepage');
-            }
-            $token = $tokenGenerator->generateToken();
+                if ($user === null) {
+                    $this->addFlash('danger', 'Email Inconnu');
+                    return $this->redirectToRoute('homepage');
+                }
+                $token = $tokenGenerator->generateToken();
 
 
                 $user->setResetToken($token);
                 $manager->flush();
 
-            $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+                $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
 
-            $message = (new \Swift_Message('Mot de passe oublié'))
-                ->setFrom('martinpetit1998@gmail.com')
-                ->setTo($user->getEmail())
-                ->setBody(
-                    "Bonjour " .$nom. " veuillez cliquer sur ce lien pour réinitialiser votre mot de passe : " . $url,
-                    'text/html'
-                );
+                $message = (new \Swift_Message('Mot de passe oublié'))
+                    ->setFrom('martinpetit1998@gmail.com')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        "Bonjour " . $nom . " veuillez cliquer sur ce lien pour réinitialiser votre mot de passe : " . $url,
+                        'text/html'
+                    );
 
-            $mailer->send($message);
+                $mailer->send($message);
 
-            $this->addFlash('success', 'Un mail vous a été envoyé, veuillez vérifier votre boite mail !');
+                $this->addFlash('success', 'Un mail vous a été envoyé, veuillez vérifier votre boite mail !');
 
-            return $this->redirectToRoute('homepage');
+                return $this->redirectToRoute('homepage');
+            }
         }
-    }
 
-        return $this->render('account/forgotten_password.html.twig',[
+        return $this->render('account/forgotten_password.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
      * @Route("/reset_password/{token}", name="app_reset_password")
+     * Gere l'oubli de mot de passe deuxième partie
      */
     public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder, UserRepository $repo, ObjectManager $manager)
     {
@@ -228,42 +235,39 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
 
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $mdp = $form->get('password')->getData();
 
-        if ($request->isMethod('POST')) {
+            if ($request->isMethod('POST')) {
 
-            
-            
 
-            $user = $repo->findOneByResetToken($token);
-            /* @var $user User */
 
-            if ($user === null) {
-                $this->addFlash('danger', 'Token Inconnu');
-                return $this->redirectToRoute('homepage');
+
+                $user = $repo->findOneByResetToken($token);
+                /* @var $user User */
+
+                if ($user === null) {
+                    $this->addFlash('danger', 'Token Inconnu');
+                    return $this->redirectToRoute('homepage');
+                }
+
+
+                $user->setResetToken(null);
+                $user->setHash($passwordEncoder->encodePassword($user, $mdp));
+                $manager->flush();
+
+                $this->addFlash('success', 'Mot de passe mis à jour');
+
+                return $this->redirectToRoute('account_login');
             }
-
-
-            $user->setResetToken(null);
-            $user->setHash($passwordEncoder->encodePassword($user, $mdp));
-            $manager->flush();
-
-            $this->addFlash('success', 'Mot de passe mis à jour');
-
-            return $this->redirectToRoute('account_login');
-        } }else {
+        } else {
 
             return $this->render('account/reset_password.html.twig', [
                 'token' => $token,
                 'form' => $form->createView()
-                ]);
+            ]);
         }
-
     }
-
-
-
 }

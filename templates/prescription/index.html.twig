@@ -7,37 +7,36 @@
 
 	<div class="container mt-5">
 
-		<div class="bg-light py-3 px-3" style = " border: 2px solid black; border-radius:30px">
-                <h1 style = "text-align:center">
-            Déposer votre ordonnance
-        </h1>
+		<div class="bg-light py-3 px-3" style=" border: 2px solid black; border-radius:30px">
+			<h1 style="text-align:center">
+				Déposer votre ordonnance
+			</h1>
 
-		{{ form_start(form) }}
-
-
-		{{form_label(form.mail)}}
-		{{ form_widget(form.mail, {value : username}) }}
-		<br>
-		{{form_label(form.brochureFilename)}}
-		{{ form_widget(form.brochureFilename)}}
-		<br>
-		{{form_label(form.message)}}
-		{{ form_widget(form.message)}}
-		<br>
+			{{ form_start(form) }}
 
 
-        <div class="form-group" style = "text-align:center">
-                        <button type="submit" class="btn btn-primary">
-                           Envoyer
-                        </button>
-        </div>
+			{{form_label(form.mail)}}
+			{{ form_widget(form.mail, {value : username}) }}
+			<br>
+			{{form_label(form.brochureFilename)}}
+			{{ form_widget(form.brochureFilename)}}
+			<br>
+			{{form_label(form.message)}}
+			{{ form_widget(form.message)}}
+			<br>
 
-		
 
-		{{ form_end(form) }}
+			<div class="form-group" style="text-align:center">
+				<button type="submit" class="btn btn-primary">
+					Envoyer
+				</button>
+			</div>
 
 
-	</div>
+			{{ form_end(form) }}
+
+
+		</div>
 
 	</div>
 

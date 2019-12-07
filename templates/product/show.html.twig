@@ -1,69 +1,63 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ product.name }}
+	{{ product.name }}
 {% endblock %}
 
 
 {% block body %}
 
-<div class="container mt-5 mb-5">
+	<div class="container mt-5 mb-5">
 
-    <div style="height: 80vh;border: 1px solid #000; background-color:white;" class="row align-items-center">
-        <div class="col nopadding">
-            <img src=" {{ product.image }} " alt="image du produit" width="465" height="500">
-        </div>
+		<div style="height: 80vh;border: 2px solid black;border-radius : 30px ;background-color:white;" class="row align-items-center">
+			<div class="col nopadding">
+				<img src=" {{ product.image }} " alt="image du produit" width="465" height="500">
+			</div>
 
-        <div class="col vertical">
+			<div class="col vertical">
 
-            <div class="row align-items-center">
+				<div class="row align-items-center">
 
-                <div class="col te" style="text-align:center">
+					<div class="col te" style="text-align:center">
 
-                    <h1>
-                        {{ product.name }}
-                    </h1>
+						<h1>
+							{{ product.name }}
+						</h1>
 
-                </div>
+					</div>
 
-                <div class="col rightA">
+					<div class="col rightA">
 
-                    <h1>
-                        {{ product.price }}&euro;</h1>
+						<h1>
+							{{ product.price }}&euro;</h1>
 
-                </div>
+					</div>
 
-                <div class="descr">
-                    {{ product.description }}
-                </div>
+					<div class="descr">
+						{{ product.description }}
+					</div>
 
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
 
-                <div class="row align-items-center">
+					<div class="row align-items-center">
 
-                    <h4>
-                        Description
-                    </h4>
-                    <br>
+						<h4>
+							Description
+						</h4>
+						<br>
 
-                    {{ product.content | raw }}
-
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="rightA mt-5">
-        <a class="btn btn-outline-secondary" href=" {{ path ('index_product') }}" role="button">Liste des produits</a>
-    </div>
+						{{ product.content | raw }}
 
 
+					</div>
+				</div>
+			</div>
+
+		</div>
 
 
-{% endblock %}
+	{% endblock %}

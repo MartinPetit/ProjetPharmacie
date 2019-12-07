@@ -4,16 +4,13 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="my-3" style="text-align : center">
-            Voici les produits en stock
-        </h1>
-    </div>
 
+<div class="container mt-5">
 
     <div class="row">
         {% for product in products %}
-            <div class="col-md-3">
+            <div class="col-md-4">&nbsp;</div>
+            <div class="col-md-4">
                 <div class="card bg-light text-dark mb-3" style=" border: 2px solid black; border-radius:30px">
 
                     <img src="{{ product.image }}" alt="Image du produit" style="height : 200px; width: 90%; display:block" class="ml-auto mr-auto mt-3">
@@ -44,6 +41,8 @@
                                 </a>
 
                             </div>
+
+                        </div>
 
                         </div>
                     </div>

@@ -108,23 +108,19 @@
 </div>
 
 <div class="footer">
-<!-- Footer --><footer class="page-footer font-small white pt-4">
-	<div
-		id="footer-content">
+<footer class="page-footer font-small white pt-4 mt-3">
+	<div id="footer-content">
 
-		<!-- Footer Links -->
-		<div
-			class="container-fluid text-center text-md-left">
+		
+		<div class="container-fluid text-center text-md-left">
 
-			<!-- Grid row -->
-			<div
-				class="row">
+			
+			<div class="row">
 
-				<!-- Grid column -->
-				<div
-					class="col-md-5 mt-md-0 mt-3 ml-5">
+				
+				<div class="col-md-5 mt-md-0 mt-3 ml-5">
 
-					<!-- Content -->
+				
 					<h5 class="text-uppercase mt-4">Pharmacie Pasteur</h5>
 					{% if app.user %}
 						<p>Cette pharmacie a vu le jour en 2012 et vous accueil tous les jours afin de vous offrir les meilleurs services possibles</p>
@@ -133,60 +129,67 @@
 					</br>
 					Inscrivez vous pour profiter de toutes les fonctionnalités :
 					<a href="{{path('account_register')}}">Inscription</a>
-				</p>
-			{% endif %}
+						</p>
+					{% endif %}
+				</div>
+		
+
+				<hr class="clearfix w-100 d-md-none pb-3">
+
+		
+				<div class="col-md-3 mb-md-0 mb-3 mt-3" style="text-align:center">
+
+			
+					<h5 class="text-uppercase">
+						Liens
+					</h5>
+
+					<ul class="list-unstyled">
+						<li>
+							<a href="{{path('homepage')}}">Accueil</a>
+						</li>
+						<li>
+							<a href="{{path('index_product')}}">Produits</a>
+						</li>
+						<li>
+							<a href="{{path('prescription')}}">Ordonnance</a>
+						</li>
+						<li>
+							<a href="{{path('rendezvous_prise')}}">Teleconsultation</a>
+						</li>
+					</ul>
+
+				</div>
+	
+				<div class="col-md-3 mb-md-0 mb-3 mt-3" style="text-align:center">
+
+					<h5 class="text-uppercase">Nous contacter</h5>
+
+					<ul class="list-unstyled">
+						<li>
+							<a target="blank" href="mailto:pharmacie.pasteur-garches@orange.fr">pharmacie.pasteur-garches@orange.fr</a>
+						</li>
+						<li>
+							<p style="color : black">0674466314</p>
+						</li>
+						<li>
+							<p style="color : black">1 avenue Henri Bergson
+							</br>
+	  						92380 Garches</p>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+
 		</div>
-		<!-- Grid column -->
 
-		<hr
-		class="clearfix w-100 d-md-none pb-3">
+	</div>
 
-		<!-- Grid column -->
-		<div
-			class="col-md-3 mb-md-0 mb-3 mt-3" style="text-align:center">
+	<div id="copyright" class="footer-copyright text-center py-3">© 2019 by Martin Petit. All Rights Reserved</div>
 
-			<!-- Links -->
-			<h5 class="text-uppercase">
-				Liens</h5>
+</footer>
 
-			<ul class="list-unstyled">
-				<li>
-					<a href="{{path('homepage')}}">Accueil</a>
-				</li>
-				<li>
-					<a href="{{path('index_product')}}">Produits</a>
-				</li>
-				<li>
-					<a href="{{path('prescription')}}">Ordonnance</a>
-				</li>
-				<li>
-					<a href="{{path('rendezvous_prise')}}">Teleconsultation</a>
-				</li>
-			</ul>
-
-		</div>
-		<!-- Grid column -->
-
-		<!-- Grid column -->
-		<div
-			class="col-md-3 mb-md-0 mb-3 mt-3" style="text-align:center">
-
-			<!-- Links -->
-			<h5 class="text-uppercase">Nous contacter</h5>
-
-			<ul class="list-unstyled">
-				<li>
-					<a target="blank" href="mailto:pharmacie.pasteur-garches@orange.fr">pharmacie.pasteur-garches@orange.fr</a>
-				</li>
-				<li>
-					<p style="color : black">0674466314</p>
-				</li>
-				<li>
-					<p style="color : black">1 avenue Henri Bergson
-			</br>
-		  	92380 Garches</p>
-	</li>
-</ul></div><!-- Grid column --></div><!-- Grid row --></div><!-- Footer Links --></div><!-- Copyright --><div id="copyright" class="footer-copyright text-center py-3">© 2019 by Martin Petit. All Rights Reserved</div><!-- Copyright --></footer><!-- Footer -->
 </div>
 
 
@@ -194,4 +197,6 @@
 
 </html>
 
-<script src="/js/jquerry.min.js"></script><script src="/js/popper.min.js"></script><script src="/js/bootstrap.min.js"></script>{% block javascripts %}{% endblock %}
+<script src="/js/jquerry.min.js"></script><script src="/js/popper.min.js"></script><script src="/js/bootstrap.min.js"></script>
+
+{% block javascripts %}{% endblock %}

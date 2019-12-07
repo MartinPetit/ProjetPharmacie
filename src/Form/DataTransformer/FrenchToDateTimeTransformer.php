@@ -5,10 +5,12 @@ namespace App\Form\DataTransformer;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class FrenchToDateTimeTransformer implements DataTransformerInterface {
-    public function transform($date) {
+class FrenchToDateTimeTransformer implements DataTransformerInterface
+{
+    public function transform($date)
+    {
 
-        if($date === null) {
+        if ($date === null) {
             return '';
         }
 
@@ -23,7 +25,7 @@ class FrenchToDateTimeTransformer implements DataTransformerInterface {
 
         $date = \DateTime::createFromFormat('d/m/Y H:i', $frenchDate);
 
-        if ($date === false ) {
+        if ($date === false) {
             throw new TransformationFailedException("Le format n'est pas le bon");
         }
 

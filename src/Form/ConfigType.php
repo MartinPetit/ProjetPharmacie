@@ -32,8 +32,7 @@ class ConfigType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('field_name')
-        ;
+            ->add('field_name');
     }
 
     public function configureOptions(OptionsResolver $resolver)
