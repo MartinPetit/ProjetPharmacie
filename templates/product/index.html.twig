@@ -13,8 +13,8 @@
 
 	<div class=" mt-5">
 
-		<div class="row">
-			<div class="col-md-3 ">
+		<div class="row ">
+			<div class="col-md-3">
 				{{form_start(form)}}
 				{{form_widget(form)}}
 			</div>
@@ -25,9 +25,12 @@
 				{{form_end(form)}}
 			</div>
 			<div class="col-md-5 pr-0">
+				<button id="bt-contact" type="button" class="btn btn-primary" data-target="#contact-mail">Afficher catégories</button>
+				<div id="contact-mail" class="tohide">
 				{% for category in categories %}
 					<a id="c1" href="{{path('show_catego', {'id' : category.id })}}" class="btn btn-secondary">{{category.name}}</a>
 				{% endfor %}
+				</div>
 			</div>
 
 
@@ -99,5 +102,24 @@
 
 	</div>
 
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+
+<script type="text/javascript">
+$(".tohide").hide();
+$(".btn-primary").on("click", function() {
+  var target = $(this).data("target");
+  if(target!==undefined) {
+    $(target).toggle();
+      $(this).toggleClass("active",$(target).is(":visible"));
+  }
+});
+
+
+</script>
 
 {% endblock %}
