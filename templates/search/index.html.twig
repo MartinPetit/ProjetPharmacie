@@ -3,6 +3,10 @@
 {% block title %}Nos Produits
 {% endblock %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="/css/product.css">
+{% endblock %}
+
 {% block body %}
 
 <div class="container mt-5">
@@ -35,9 +39,9 @@
                             </div>
 
 
-                            <div class=" col-6">
+                            <div class=" col-6" id ="p">
                                 <a href=" {{ path ('show_products', {'slug' : product.slug }) }}" class="btn btn-secondary">
-                                    Voir le produit
+                                    Details
                                 </a>
 
                             </div>
@@ -52,6 +56,28 @@
             </div>
 
         {% endfor %}
+
+        {% if products == false  %}
+        <div class="container mt-5 mb-5">
+
+		<div style="height: 80vh;border: 2px solid black;border-radius : 30px ;background-color:white;" class="align-items-center">
+
+        <center> <img src="http://img.over-blog-kiwi.com/1/15/35/45/20150602/ob_99274b_erreur.jpg" alt="Image erreur" style="height : 300px; width: 50%; margin-top : 10px; margin-bottom : 5px;"> </center>
+            <p id ="p1"> 
+                Nous sommes désolés, aucun produits ne correspond à vos recherches ! Veuillez cliquer ici pour revenir à la liste des produits : </br> </br>
+            </p>
+
+             <div style = "text-align:center">
+                                <a href=" {{ path ('index_product') }}" class="btn btn-primary">
+                                    Liste des produits
+                                </a>
+
+                </div>
+
+        </div>
+        </div>
+        {% endif %}
+
     </div>
 
 

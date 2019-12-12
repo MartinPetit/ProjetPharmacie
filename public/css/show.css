@@ -12,9 +12,6 @@ body {
     
 }
 
-a.nav-link:hover {
-    background-color:#f2f2f2;
-}
 
 
 .navbar {
@@ -49,8 +46,10 @@ a.btn.btn-outline-secondary {
 
 .btn-default:hover {
     color:black;
-    background-color:#f2f2f2;
+
 }
+
+
 
 .btn-default {
     color: rgba(0,0,0,0.3);
@@ -115,3 +114,42 @@ a.btn.btn-outline-secondary {
     padding-bottom: 10px;
  
     }
+
+
+    li.nav-item.active a.nav-link {
+        position: relative;
+        text-decoration: none;
+        padding: 10px 0;
+      }
+
+
+
+    ul li a.active span{
+        font-weight: bold;
+        color : #77b300;
+        font-size : 20px;
+        
+    }
+
+    
+       
+      li.nav-item.active a.nav-link:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background: black;
+        transition: width 500ms ease;
+      }
+       
+      li.nav-item.active a.nav-link:hover:after {
+        width: 100%;
+      }
+
+      
+
+
+
+      

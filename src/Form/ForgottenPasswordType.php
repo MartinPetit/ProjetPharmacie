@@ -14,14 +14,11 @@ class ForgottenPasswordType extends ConfigType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('mail', EmailType::class, $this->getConfiguration("Email", "Entrer votre adresse mail"))
-        ;
+            ->add('mail', EmailType::class, $this->getConfiguration("Email", "Entrer votre adresse mail"));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
- 
-        ]);
+        $resolver->setDefaults([]);
     }
 }

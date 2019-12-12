@@ -4,6 +4,10 @@
 	{{catego.name}}
 {% endblock %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="/css/product.css">
+{% endblock %}
+
 {% block body %}
 	
 
@@ -31,9 +35,9 @@
 							</div>
 
 
-							<div class=" col-6">
+							<div class=" col-6" id = "p">
 								<a href=" {{ path ('show_products', {'slug' : products.slug }) }}" class="btn btn-secondary">
-									Voir le produit
+									Details
 								</a>
 
 							</div>

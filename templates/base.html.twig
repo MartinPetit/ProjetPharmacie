@@ -29,22 +29,22 @@
 					<div class="collapse navbar-collapse" id="navbarColor01">
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item active">
-								<a class="nav-link" href="{{ path ('homepage') }}">Accueil</a>
+								<a class="nav-link" href="{{ path ('homepage') }}"><span>Accueil </span></a>
 							</li>
 						</ul>
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item active">
-								<a class="nav-link" href="{{ path ('index_product') }}">Nos produits</a>
+								<a class="nav-link" href="{{ path ('index_product') }}"><span>Nos produits</span></a>
 							</li>
 						</ul>
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item active">
-								<a class="nav-link" href="{{ path ('rendezvous_prise') }}">Teleconsultation</a>
+								<a class="nav-link" href="{{ path ('rendezvous_prise') }}"><span>Teleconsultation</span></a>
 							</li>
 						</ul>
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item active">
-								<a class="nav-link" href="{{ path ('prescription') }}">Ordonnance</a>
+								<a class="nav-link" href="{{ path ('prescription') }}"><span>Ordonnance</span></a>
 							</li>
 						</ul>
 						<ul class="navbar-nav ml-auto">
@@ -198,5 +198,22 @@
 </html>
 
 <script src="/js/jquerry.min.js"></script><script src="/js/popper.min.js"></script><script src="/js/bootstrap.min.js"></script>
+
+<script>
+
+const navLinks = document.querySelectorAll(" ul li a"),
+  url = window.location.href;
+
+if (url.includes("{{ path ('index_product') }}")) {
+  navLinks[1].classList.add("active");
+} else if (url.includes("{{ path ('rendezvous_prise') }}")) {
+  navLinks[2].classList.add("active");
+} else if (url.includes("{{ path ('prescription') }}")) {
+  navLinks[3].classList.add("active");
+} else {
+  navLinks[0].classList.add("active");
+}
+
+</script>
 
 {% block javascripts %}{% endblock %}
