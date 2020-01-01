@@ -41,10 +41,10 @@
 		{% for product in products %}
 			<div class="col-md-3">
 				<div class="card bg-light text-dark mb-3" style="border : 2px solid black; border-radius: 30px">
-
-					<img src="{{ product.image }}" alt="Image du produit" style="height : 200px; width: 90%; display:block" class="ml-auto mr-auto mt-3">
-
-					<div class="card-body">
+					
+					<img src="{{ product.image }}" alt="Image du produit" style="height : 200px; width: 90%; display:block" class="ml-auto mr-auto mt-3 ">
+					
+					<div class="card-body  ">
 						<h2 class="card-title" style="text-align : center">
 							{{ product.name }}
 						</h2>
@@ -109,6 +109,7 @@
 {% block javascripts %}
 
 
+
 <script type="text/javascript">
 $(".tohide").hide();
 $(".btn-primary").on("click", function() {
@@ -120,6 +121,8 @@ $(".btn-primary").on("click", function() {
 });
 
 
+
 </script>
 
 {% endblock %}
+

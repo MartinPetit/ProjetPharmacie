@@ -7,6 +7,27 @@
 
 	<div class="container mt-5">
 
+	{% if prescriptions == false  %}
+        <div class="container mt-5 mb-5">
+
+		<div style="height: 80vh;border: 2px solid black;border-radius : 30px ;background-color:white;" class="align-items-center">
+
+        <center> <img src="https://eole.lycee-bonaparte.fr/wordpress/wp-content/uploads/2018/11/Prise-de-RDV-en-ligne.png" alt="Image erreur" style="height : 300px; width: 50%; margin-top : 10px; margin-bottom : 5px;"> </center>
+            <p id ="p1"> 
+                Vous n'avez pas déposé d'ordonnances pour le moment ! Si vous souhaitez envoyer votre ordonnance, cliquez ici :  </br> </br>
+            </p>
+
+             <div style = "text-align:center">
+                                <a href=" {{ path ('prescription') }}" class="btn btn-primary">
+                                    Déposer mon ordonnance
+                                </a>
+
+                </div>
+
+        </div>
+        </div>
+        {% else %}
+
         <div class="bg-light py-3 px-3" style=" border: 2px solid black; border-radius:30px">
 			
             <h1 style="text-align:center">
@@ -45,6 +66,8 @@
 			</table>
 		</div>
     </div>
+
+	{% endif %}
 </div>
 
 {% endblock %}

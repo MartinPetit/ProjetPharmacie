@@ -8,6 +8,27 @@
 
 	<div class="container mt-5">
 
+	{% if rendezvous == false  %}
+        <div class="container mt-5 mb-5">
+
+		<div style="height: 80vh;border: 2px solid black;border-radius : 30px ;background-color:white;" class="align-items-center">
+
+        <center> <img src="https://eole.lycee-bonaparte.fr/wordpress/wp-content/uploads/2018/11/Prise-de-RDV-en-ligne.png" alt="Image erreur" style="height : 300px; width: 50%; margin-top : 10px; margin-bottom : 5px;"> </center>
+            <p id ="p1"> 
+                Vous n'avez aucun rendez-vous, veuillez cliquez ici pour réserver la téléconsultation : </br> </br>
+            </p>
+
+             <div style = "text-align:center">
+                                <a href=" {{ path ('rendezvous_prise') }}" class="btn btn-primary">
+                                    Prendre rendez-vous
+                                </a>
+
+                </div>
+
+        </div>
+        </div>
+        {% else %}
+
 		<div class="row">
 			<div class="col-md-3">&nbsp;</div>
 			<div class="col-md-6">
@@ -49,6 +70,8 @@
 			</div>
 		</div>
 	</div>
+
+{% endif %}
 </div>
 
 {% endblock %}

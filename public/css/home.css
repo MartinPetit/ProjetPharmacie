@@ -1,7 +1,31 @@
 body {
-    background-image:url("https://www.acppav.org/agora/templates/fond_ecran/11.jpg");
+    background-image:url("https://cdn.pixabay.com/photo/2016/12/05/19/45/pill-1884777_1280.jpg");
     background-attachment: fixed;
     
     
+}
+
+.reveal [class*="reveal-"] {
+    opacity : 0!important;
+    transform: translateY(30px)!important;
+}
+
+[class*="reveal-"]{
+    transition: 1s cubic-bezier(.5, 0, 0, 1);
+}
+
+.reveal-2 {
+    transition-delay : .1s
+}
+
+.reveal-3 {
+    transition-delay : .2s
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal [class*="reveal-"] {
+        opacity : 1!important;
+        transform: translateY(0px)!important;
+    }
 }
 

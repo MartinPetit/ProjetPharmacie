@@ -19,14 +19,14 @@
 		<div class="row">
 			<div class="col">
 
-				<div class="card bg-light mb-3" style="border : 2px solid black; border-radius: 30px">
-					<div class="card-header text-center">
+				<div class="card bg-light mb-3 reveal" style="border : 2px solid black; border-radius: 30px">
+					<div class="card-header text-center reveal-1">
 						<h2>
 							Présentation de la pharmacie et de l'équipe
 						</h2>
 					</div>
 
-					<div class="card-body">
+					<div class="card-body reveal-2">
 						<p class="card-text" style="text-align : center">
 
 							<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -61,7 +61,7 @@
 
 					<hr class="ml-5 mr-5">
 
-					<div class="card-body row align-items-center">
+					<div class="card-body row align-items-center reveal-3">
 						<div class="col-4">
 							<h2 class="card-text" style="text-align : center">
 								<i class="fas fa-user-circle fa-5x"></i>
@@ -121,14 +121,14 @@
 				<br>
 				<br>
 
-				<div class="card bg-light mb-3" style="border : 2px solid black; border-radius: 30px">
-					<div class="card-header text-center">
+				<div class="card bg-light mb-3 reveal" style="border : 2px solid black; border-radius: 30px">
+					<div class="card-header text-center reveal-1">
 						<h2>
 							Présentation de la Téléconsultation
 						</h2>
 					</div>
 
-					<div class="card-body row align-items-center">
+					<div class="card-body row align-items-center reveal-2">
 						<div class="col-4">
 							<h2 class="card-text" style="text-align : center">
 								<img class="d-block w-100" width="300" height="300" src="https://www.jechercheunrdv.fr/Portail/img/animation-particulier/slide-particulier-03.png">
@@ -188,7 +188,7 @@
 
 					<hr class="ml-5 mr-5">
 
-					<div class="card-body">
+					<div class="card-body reveal-3">
 						<p class="card-text" style="text-align : center; color : black">
 							Vous souhaitez prendre un rendez vous de teleconsultation en pharmacie ? 
 							cliquez ici afin de choisir un créneau : <a class = "btn btn-primary" href="{{path('rendezvous_prise')}}">Prendre rendez vous</a>
@@ -200,14 +200,14 @@
 				</br>
 				</br>
 
-				<div class="card bg-light mb-3" style="border : 2px solid black; border-radius: 30px">
-					<div class="card-header text-center">
+				<div class="card bg-light mb-3 reveal" style="border : 2px solid black; border-radius: 30px">
+					<div class="card-header text-center reveal-1">
 						<h2>
 							Nos coordonnées
 						</h2>
 					</div>
 
-					<div class="card-body row align-items-center">
+					<div class="card-body row align-items-center reveal-2">
 						<div class="col-4">
 							<h6 class="card-text">
 								<span class="fas fa-clock"></span>
@@ -277,7 +277,7 @@
 
 					<hr class="ml-5 mr-5">
 
-					<div class="card-body">
+					<div class="card-body reveal-3">
 						<p class="card-text" style="text-align : center">
 							<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.900494435602!2d2.1791982511168015!3d48.84103667918412!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67ca197314241%3A0x8114ac5261c36f5c!2sSelarl%20Pharmacie%20Pasteur!5e0!3m2!1sfr!2sfr!4v1572006515137!5m2!1sfr!2sfr" width="1000" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 						</p>
@@ -289,14 +289,14 @@
 				</br>
 				</br>
 
-				<div class="card bg-light " style="border : 2px solid black; border-radius: 30px">
-					<div class="card-header text-center">
+				<div class="card bg-light reveal" style="border : 2px solid black; border-radius: 30px">
+					<div class="card-header text-center reveal-1">
 						<h2>
 							Contacter nous !
 						</h2>
 					</div>
 
-					<div class="card-body">
+					<div class="card-body reveal-2">
 						<div class="container">
 
 							{% if app.user %}
@@ -357,4 +357,8 @@
 	</div>
 
 
+{% endblock %}
+
+{% block javascripts %}
+	<script src="js/home.js"></script>
 {% endblock %}
