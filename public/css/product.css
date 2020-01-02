@@ -1,6 +1,8 @@
 body {
     background-image:url("https://cdn.pixabay.com/photo/2016/12/05/19/45/pill-1884777_1280.jpg");
     background-attachment: fixed;
+    overflow-x:hidden; /* on empeche le defillement horizontall */
+    overflow-y:scroll; /* on accepte le defillement vertical */
 }
 
 #c1 {
@@ -13,37 +15,34 @@ a#c1.btn.btn-secondary:hover {
 }
 
 
-#p{
-    position: absolute;
-    top: 85%;
-    left: 75%;
-    transform: translate(-50%);
+.reveal-3 #p{
+    transform: translate(-0%);
   }
 
-  #p a{
+  .reveal-3 #p a{
     display: block;
     color: black;
     text-decoration: none;
     position: relative;
   }
   
-  #p a::after{
+  .reveal-3 #p a::after{
     content: "";
     background: white;
-      mix-blend-mode: exclusion;
+    mix-blend-mode: exclusion;
     width: calc(100% + 20px);
     height: 0;
     position: absolute;
     bottom: -4px;
     left: -10px;
-      transition: all .3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    transition: all .3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
   }
   
-  #p a:hover::after{
+  .reveal-3 #p a:hover::after{
       height: calc(100% + 8px)
   }
 
-  #p a.btn.btn-secondary {
+  .reveal-3 #p a.btn.btn-secondary {
       background-color: white;
   }
   
@@ -65,7 +64,7 @@ a#c1.btn.btn-secondary:hover {
 }
 
 [class*="reveal-"]{
-  transition: 1s cubic-bezier(.5, 0, 0, 1);
+  transition: 1s cubic-bezier(.5, 0, 0, 1)!important;
 }
 
 .reveal-2 {

@@ -15,11 +15,11 @@
         {% for product in products %}
             <div class="col-md-4">&nbsp;</div>
             <div class="col-md-4">
-                <div class="card bg-light text-dark mb-3" style=" border: 2px solid black; border-radius:30px">
+                <div class="card bg-light text-dark mb-3 reveal" style=" border: 2px solid black; border-radius:30px">
 
-                    <img src="{{ product.image }}" alt="Image du produit" style="height : 200px; width: 90%; display:block" class="ml-auto mr-auto mt-3">
+                    <img src="{{ product.image }}" alt="Image du produit" style="height : 200px; width: 90%; display:block" class="ml-auto mr-auto mt-3 reveal-1">
 
-                    <div class="card-body">
+                    <div class="card-body reveal-2">
                         <h2 class="card-title" style="text-align : center">
                             {{ product.name }}
                         </h2>
@@ -31,7 +31,7 @@
                         </p>
                         
 
-                        <div class="card-text  row align-items-center">
+                        <div class="card-text  row align-items-center reveal-3">
 
                             <div class=" col-6">
 
@@ -84,3 +84,9 @@
 {% endblock %}
 
 
+{% block javascripts %}
+
+<script src="/js/product.js"></script>
+
+
+{% endblock %}
